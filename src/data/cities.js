@@ -1,12 +1,16 @@
+export const liveCities = ['Hyderabad', 'Mumbai', 'Bangalore', 'Delhi', 'Pune', 'Chennai']
+
 export const cities = [
-  'Mumbai',
-  'Delhi',
-  'Bengaluru',
   'Hyderabad',
+  'Mumbai',
+  'Bangalore',
+  'Delhi',
+  'Pune',
   'Chennai',
   'Kolkata',
-  'Pune',
   'Ahmedabad',
   'Jaipur',
   'Kochi',
+  'Lucknow',
+  'Chandigarh',
 ]

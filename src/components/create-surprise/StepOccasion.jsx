@@ -11,11 +11,10 @@ export default function StepOccasion({ data, onChange, onBack, onContinue }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="font-display text-3xl font-medium text-charcoal sm:text-4xl">
-        What&apos;s the occasion?
-      </h2>
-      <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">
-        Pick the moment you want to mark — we&apos;ll shape the surprise around it.
+      <p className="font-ui text-xs font-semibold uppercase tracking-[0.16em] text-pink-hot">Step 02 · Moment</p>
+      <h2 className="mt-2 font-display text-3xl font-bold text-snow sm:text-4xl">What&apos;s the occasion?</h2>
+      <p className="mt-3 max-w-lg text-base leading-relaxed text-fog">
+        Pick the moment. We&apos;ll match the energy.
       </p>
 
       <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -27,16 +26,16 @@ export default function StepOccasion({ data, onChange, onBack, onContinue }) {
               type="button"
               onClick={() => onChange({ occasion: item.id })}
               aria-pressed={selected}
-              className={`rounded-2xl border p-5 text-left shadow-sm transition-all duration-200 ${
+              className={`rounded-2xl border p-5 text-left transition-all duration-200 ${
                 selected
-                  ? 'border-terracotta bg-terracotta/8 ring-2 ring-terracotta/25'
-                  : 'border-sand bg-card hover:border-terracotta/30 hover:shadow-md'
+                  ? 'border-pink bg-pink/10 ring-2 ring-pink/30'
+                  : 'border-line bg-panel hover:border-pink/40'
               }`}
             >
               <span className="text-2xl" aria-hidden="true">
                 {item.emoji}
               </span>
-              <p className="mt-3 font-display text-xl text-charcoal">{item.label}</p>
+              <p className="mt-3 font-display text-xl text-snow">{item.label}</p>
             </button>
           )
         })}

@@ -1,32 +1,32 @@
 export const howItWorksSteps = [
   {
     number: '01',
-    title: 'Choose someone',
-    description: 'Tell us who you want to surprise, and where they are.',
+    title: 'Lock the Target',
+    description: 'Name, city, relationship — who gets the magic.',
   },
   {
     number: '02',
-    title: 'Pick the occasion',
-    description: 'Birthday, anniversary, or just because — set the tone.',
+    title: 'Pick the Moment',
+    description: 'Birthday, anniversary, roast, or just because.',
   },
   {
     number: '03',
-    title: 'Choose an experience',
-    description: 'Cake, performers, a delivery, or something custom.',
+    title: 'Choose the Experience',
+    description: 'Birthday Raid, Midnight Mission, Bollywood Moment — you name the vibe.',
   },
   {
     number: '04',
-    title: 'Make it personal',
-    description: 'Add likes, a message, and any special instructions.',
+    title: 'Add the Magic',
+    description: 'Likes, a message, and notes for the Surprise Crew.',
   },
   {
     number: '05',
-    title: 'Set the moment',
-    description: 'Pick a date, time, and place for our local team.',
+    title: 'Set When & Where',
+    description: 'Date, time, address. We handle the rest.',
   },
   {
     number: '06',
-    title: 'We make it happen',
-    description: 'A local crew handles the surprise while you stay miles away.',
+    title: 'Launch the Mission',
+    description: 'A local Surprise Crew makes the moment land — even if you are miles away.',
   },
 ]

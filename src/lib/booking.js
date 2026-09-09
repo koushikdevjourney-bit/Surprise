@@ -6,6 +6,56 @@ import { parseStartingPrice } from './format'
 
 export const DRAFT_KEY = 'surprise.draft'
 export const BOOKING_KEY = 'surprise.booking'
+export const PLANNER_KEY = 'surprise.planner'
+
+export const emptyForm = {
+  recipientName: '',
+  recipientCity: '',
+  relationship: '',
+  occasion: '',
+  experienceId: '',
+  loves: '',
+  dislikes: '',
+  message: '',
+  instructions: '',
+  date: '',
+  time: '',
+  address: '',
+  phone: '',
+}
+
+export function formFromPlan(plan) {
+  if (!plan) return {}
+  const occasionId = occasions.some((item) => item.id === plan.occasion)
+    ? plan.occasion
+    : occasions.find((item) => item.label.toLowerCase() === String(plan.occasion ?? '').toLowerCase())?.id
+
+  return {
+    recipientCity: plan.city ?? '',
+    occasion: occasionId ?? '',
+    experienceId: experiences.some((item) => item.id === plan.experienceId) ? plan.experienceId : '',
+    loves: plan.whyItWorks ?? '',
+    message: plan.summary ?? '',
+    instructions: plan.crewNotes ?? '',
+  }
+}
+
+export function savePlannerPlan(plan) {
+  sessionStorage.setItem(PLANNER_KEY, JSON.stringify(plan))
+}
+
+export function loadPlannerPlan() {
+  try {
+    const raw = sessionStorage.getItem(PLANNER_KEY)
+    return raw ? JSON.parse(raw) : null
+  } catch {
+    return null
+  }
+}
+
+export function clearPlannerPlan() {
+  sessionStorage.removeItem(PLANNER_KEY)
+}
 
 export function isBookingComplete(form) {
   if (!form) return false
@@ -29,7 +79,7 @@ export function getOccasion(form) {
 
 export function getPricing(form) {
   const experience = getExperience(form)
-  const experienceAmount = parseStartingPrice(experience?.startingPrice)
+  const experienceAmount = experience?.priceAmount ?? parseStartingPrice(experience?.startingPrice)
   const serviceFee = fees.SERVICE_FEE_INR
   return {
     experienceAmount,

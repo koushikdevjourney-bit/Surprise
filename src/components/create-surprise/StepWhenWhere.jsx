@@ -2,8 +2,7 @@ import Button from '../Button'
 import FlowField from './FlowField'
 
 export default function StepWhenWhere({ data, onChange, onBack, onContinue }) {
-  const valid =
-    data.date && data.time && data.address.trim() && data.phone.trim()
+  const valid = data.date && data.time && data.address.trim() && data.phone.trim()
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -12,11 +11,10 @@ export default function StepWhenWhere({ data, onChange, onBack, onContinue }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="font-display text-3xl font-medium text-charcoal sm:text-4xl">
-        When should the surprise happen?
-      </h2>
-      <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">
-        Share a time and place so our local team can coordinate.
+      <p className="font-ui text-xs font-semibold uppercase tracking-[0.16em] text-pink-hot">Step 05 · When & Where</p>
+      <h2 className="mt-2 font-display text-3xl font-bold text-snow sm:text-4xl">When should the moment hit?</h2>
+      <p className="mt-3 max-w-lg text-base leading-relaxed text-fog">
+        Time and place — the Surprise Crew will coordinate from there.
       </p>
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -41,7 +39,7 @@ export default function StepWhenWhere({ data, onChange, onBack, onContinue }) {
             id="address"
             as="textarea"
             rows={3}
-            label="Recipient's address"
+            label="Where they'll be"
             required
             value={data.address}
             onChange={(event) => onChange({ address: event.target.value })}
@@ -52,7 +50,7 @@ export default function StepWhenWhere({ data, onChange, onBack, onContinue }) {
           <FlowField
             id="phone"
             type="tel"
-            label="Recipient's phone number"
+            label="Their phone number"
             required
             value={data.phone}
             onChange={(event) => onChange({ phone: event.target.value })}
@@ -61,9 +59,7 @@ export default function StepWhenWhere({ data, onChange, onBack, onContinue }) {
         </div>
       </div>
 
-      <p className="mt-6 text-sm text-muted">
-        We only use these details to coordinate your surprise.
-      </p>
+      <p className="mt-6 text-sm text-fog">We only use these details to coordinate the mission.</p>
 
       <div className="mt-10 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Button type="button" variant="ghost" onClick={onBack} className="px-2">

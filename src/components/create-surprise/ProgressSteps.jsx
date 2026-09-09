@@ -1,16 +1,19 @@
 const STEPS = [
-  { id: 1, number: '01', label: 'Recipient' },
+  { id: 1, number: '01', label: 'Target' },
   { id: 2, number: '02', label: 'Occasion' },
   { id: 3, number: '03', label: 'Experience' },
-  { id: 4, number: '04', label: 'Personalize' },
-  { id: 5, number: '05', label: 'When & Where' },
+  { id: 4, number: '04', label: 'Magic' },
+  { id: 5, number: '05', label: 'When' },
   { id: 6, number: '06', label: 'Review' },
+  { id: 7, number: '07', label: 'Briefing' },
+  { id: 8, number: '08', label: 'Launch' },
+  { id: 9, number: '09', label: 'Accepted' },
 ]
 
 export default function ProgressSteps({ current }) {
   return (
-    <nav aria-label="Surprise creation progress" className="-mx-1 overflow-x-auto pb-1">
-      <ol className="flex min-w-max items-center gap-1 px-1 sm:min-w-0 sm:flex-wrap sm:justify-center">
+    <nav aria-label="Mission progress" className="-mx-1 overflow-x-auto pb-1">
+      <ol className="flex min-w-max items-center gap-1 px-1">
         {STEPS.map((step, index) => {
           const isCurrent = step.id === current
           const isDone = step.id < current
@@ -19,22 +22,16 @@ export default function ProgressSteps({ current }) {
             <li key={step.id} className="flex items-center">
               {index > 0 ? (
                 <span
-                  className={`mx-1 hidden h-px w-6 sm:mx-2 sm:block sm:w-8 ${isDone || isCurrent ? 'bg-terracotta/40' : 'bg-sand'}`}
+                  className={`mx-1 h-px w-4 sm:mx-1.5 sm:w-6 ${isDone || isCurrent ? 'bg-pink/50' : 'bg-line'}`}
                   aria-hidden="true"
                 />
               ) : null}
               <div
-                className={`flex items-center gap-2 rounded-full px-2.5 py-1.5 text-xs sm:px-3 sm:text-sm ${
-                  isCurrent
-                    ? 'bg-terracotta/10 text-terracotta'
-                    : isDone
-                      ? 'text-charcoal'
-                      : 'text-muted'
+                className={`flex items-center gap-1.5 rounded-full px-2 py-1.5 text-[11px] sm:px-2.5 sm:text-xs ${
+                  isCurrent ? 'bg-pink/15 text-pink-hot' : isDone ? 'text-snow' : 'text-fog'
                 }`}
               >
-                <span className={`font-semibold ${isCurrent ? 'text-terracotta' : ''}`}>
-                  {step.number}
-                </span>
+                <span className={`font-semibold ${isCurrent ? 'text-pink-hot' : ''}`}>{step.number}</span>
                 <span className={isCurrent ? 'font-semibold' : 'font-medium'}>{step.label}</span>
               </div>
             </li>

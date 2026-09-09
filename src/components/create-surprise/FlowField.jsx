@@ -11,14 +11,14 @@ export default function FlowField({
   list,
 }) {
   const classes =
-    'mt-2 w-full rounded-2xl border border-sand bg-white px-4 py-3 text-sm text-charcoal outline-none transition-colors placeholder:text-muted/60 focus:border-terracotta/50 focus:ring-2 focus:ring-terracotta/15'
+    'mt-2 w-full rounded-2xl border border-line bg-raised px-4 py-3 text-sm text-snow outline-none transition-colors placeholder:text-fog/60 focus:border-pink/50 focus:ring-2 focus:ring-pink/20'
 
   return (
     <div>
-      <label htmlFor={id} className="text-sm font-semibold text-charcoal">
+      <label htmlFor={id} className="font-ui text-sm font-semibold text-snow">
         {label}
         {required ? (
-          <span className="ml-1 font-medium text-terracotta" aria-hidden="true">
+          <span className="ml-1 font-medium text-pink" aria-hidden="true">
             *
           </span>
         ) : null}
@@ -31,7 +31,7 @@ export default function FlowField({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className={`${classes} resize-y min-h-24`}
+          className={`${classes} min-h-24 resize-y`}
         />
       ) : (
         <input

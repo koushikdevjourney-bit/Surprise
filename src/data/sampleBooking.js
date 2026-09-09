@@ -4,7 +4,7 @@ export const sampleBooking = {
   recipientCity: 'Mumbai',
   relationship: 'Partner',
   occasion: 'birthday',
-  experienceId: 'cake-flowers',
+  experienceId: 'romantic-surprise',
   loves: 'Sunflowers and pistachio cake',
   dislikes: 'Balloons that pop too loud',
   message: 'Happy birthday. Wish I could be there — this is the next best thing.',

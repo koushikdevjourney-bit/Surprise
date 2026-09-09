@@ -9,11 +9,10 @@ export default function StepPersonalize({ data, onChange, onBack, onContinue }) 
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="font-display text-3xl font-medium text-charcoal sm:text-4xl">
-        Make it personal.
-      </h2>
-      <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">
-        The little details make the biggest difference.
+      <p className="font-ui text-xs font-semibold uppercase tracking-[0.16em] text-pink-hot">Step 04 · Magic</p>
+      <h2 className="mt-2 font-display text-3xl font-bold text-snow sm:text-4xl">Personalize the magic.</h2>
+      <p className="mt-3 max-w-lg text-base leading-relaxed text-fog">
+        Tiny details. Huge impact. Brief the crew like a hype friend.
       </p>
 
       <div className="mt-8 space-y-5">
@@ -44,10 +43,10 @@ export default function StepPersonalize({ data, onChange, onBack, onContinue }) 
         <FlowField
           id="instructions"
           as="textarea"
-          label="Special instructions"
+          label="Notes for the Surprise Crew"
           value={data.instructions}
           onChange={(event) => onChange({ instructions: event.target.value })}
-          placeholder="Anything else we should know?"
+          placeholder="Anything else the crew should know?"
         />
       </div>
 

@@ -11,11 +11,10 @@ export default function StepExperience({ data, onChange, onBack, onContinue }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="font-display text-3xl font-medium text-charcoal sm:text-4xl">
-        How do you want to surprise them?
-      </h2>
-      <p className="mt-3 max-w-lg text-base leading-relaxed text-muted">
-        Choose the experience — we&apos;ll take care of making it land.
+      <p className="font-ui text-xs font-semibold uppercase tracking-[0.16em] text-pink-hot">Step 03 · Experience</p>
+      <h2 className="mt-2 font-display text-3xl font-bold text-snow sm:text-4xl">Pick the experience</h2>
+      <p className="mt-3 max-w-lg text-base leading-relaxed text-fog">
+        This is the move. The Surprise Crew will make it land.
       </p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -27,18 +26,16 @@ export default function StepExperience({ data, onChange, onBack, onContinue }) {
               type="button"
               onClick={() => onChange({ experienceId: item.id })}
               aria-pressed={selected}
-              className={`rounded-2xl border p-6 text-left shadow-sm transition-all duration-200 ${
-                selected
-                  ? 'border-terracotta bg-terracotta/8 ring-2 ring-terracotta/25'
-                  : 'border-sand bg-card hover:-translate-y-0.5 hover:border-terracotta/30 hover:shadow-md'
+              className={`rounded-2xl border p-6 text-left transition-all duration-200 mood-border-${item.mood} ${
+                selected ? 'bg-pink/10 ring-2 ring-pink/30' : 'bg-panel hover:-translate-y-0.5'
               }`}
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-cream text-2xl">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-raised text-2xl">
                 <span aria-hidden="true">{item.emoji}</span>
               </div>
-              <p className="font-display text-xl font-medium text-charcoal">{item.title}</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{item.description}</p>
-              <p className="mt-5 text-sm font-semibold text-terracotta">{item.price}</p>
+              <p className="font-display text-xl font-bold text-snow">{item.title}</p>
+              <p className="mt-2 text-sm leading-relaxed text-fog">{item.description}</p>
+              <p className="mt-5 text-sm font-semibold text-pink-hot">{item.price}</p>
             </button>
           )
         })}

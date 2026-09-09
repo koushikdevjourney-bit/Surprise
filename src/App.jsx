@@ -6,11 +6,14 @@ import AdminOrders from './admin/pages/Orders'
 import AdminOverview from './admin/pages/Overview'
 import AdminPartners from './admin/pages/Partners'
 import AdminSettings from './admin/pages/Settings'
+import AiPlanner from './pages/AiPlanner'
+import BecomePartner from './pages/BecomePartner'
 import Confirmation from './pages/Confirmation'
 import CreateSurprise from './pages/CreateSurprise'
 import Experiences from './pages/Experiences'
 import Home from './pages/Home'
 import HowItWorks from './pages/HowItWorks'
+import Nri from './pages/Nri'
 import Payment from './pages/Payment'
 import SurpriseTracking from './pages/SurpriseTracking'
 
@@ -22,6 +25,10 @@ export default function App() {
       <Route path="/experiences" element={<Experiences />} />
       <Route path="/create-surprise" element={<CreateSurprise />} />
       <Route path="/create" element={<Navigate to="/create-surprise" replace />} />
+      <Route path="/ai-planner" element={<AiPlanner />} />
+      <Route path="/planner" element={<Navigate to="/ai-planner" replace />} />
+      <Route path="/nri" element={<Nri />} />
+      <Route path="/become-a-partner" element={<BecomePartner />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/confirmation" element={<Confirmation />} />
       <Route path="/surprise/:id" element={<SurpriseTracking />} />
