@@ -22,6 +22,7 @@ export const emptyForm = {
   time: '',
   address: '',
   phone: '',
+  mood: '',
 }
 
 export function formFromPlan(plan) {

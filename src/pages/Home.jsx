@@ -1,16 +1,18 @@
 import { motion } from 'framer-motion'
+import { Crosshair, Rocket, Sparkles, Wand2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import ExperienceCard from '../components/ExperienceCard'
 import Layout from '../components/Layout'
 import { experiences } from '../data/experiences'
 
 const emotions = [
-  { emoji: '🎂', label: 'Birthday chaos' },
-  { emoji: '💌', label: 'Secret crush' },
-  { emoji: '😂', label: 'Best-friend roast' },
-  { emoji: '💍', label: 'The big yes' },
-  { emoji: '🌍', label: 'NRI magic' },
-  { emoji: '🌙', label: 'Midnight drop' },
+  { slug: 'loved', emoji: '❤️', label: 'Loved', glow: 'hover:shadow-[0_0_28px_rgba(255,45,138,0.55)] hover:border-pink' },
+  { slug: 'laughing', emoji: '😂', label: 'Laughing', glow: 'hover:shadow-[0_0_28px_rgba(255,183,3,0.5)] hover:border-mood-funny' },
+  { slug: 'emotional', emoji: '😭', label: 'Emotional', glow: 'hover:shadow-[0_0_28px_rgba(59,130,246,0.5)] hover:border-blue-400' },
+  { slug: 'shocked', emoji: '😱', label: 'Shocked', glow: 'hover:shadow-[0_0_28px_rgba(255,138,61,0.5)] hover:border-orange-400' },
+  { slug: 'celebrated', emoji: '🎉', label: 'Celebrated', glow: 'hover:shadow-[0_0_28px_rgba(139,108,255,0.5)] hover:border-mood-anonymous' },
+  { slug: 'speechless', emoji: '🤯', label: 'Speechless', glow: 'hover:shadow-[0_0_28px_rgba(255,59,59,0.5)] hover:border-red-500' },
 ]
 
 const featured = experiences.filter((item) =>
@@ -18,6 +20,60 @@ const featured = experiences.filter((item) =>
     item.id,
   ),
 )
+
+const cardGlow = {
+  'birthday-raid': '0 20px 40px rgba(255,51,102,0.3)',
+  'midnight-mission': '0 20px 40px rgba(139,108,255,0.35)',
+  'romantic-surprise': '0 20px 40px rgba(255,51,80,0.35)',
+  'bollywood-moment': '0 20px 40px rgba(232,195,106,0.3)',
+  'nri-love-package': '0 20px 40px rgba(46,230,182,0.3)',
+  'proposal-setup': '0 20px 40px rgba(255,51,80,0.3)',
+}
+
+const howSteps = [
+  {
+    n: '01',
+    Icon: Crosshair,
+    t: 'Lock the Target',
+    d: 'Name, city, relationship. Tell us who gets the magic — even if you are miles away.',
+  },
+  {
+    n: '02',
+    Icon: Sparkles,
+    t: 'Pick the Experience',
+    d: 'Birthday Raid, Midnight Mission, Bollywood drop — choose the vibe that fits the moment.',
+  },
+  {
+    n: '03',
+    Icon: Wand2,
+    t: 'Add the Magic',
+    d: 'A personal message plus notes for the Surprise Crew. Tiny details, huge impact.',
+  },
+  {
+    n: '04',
+    Icon: Rocket,
+    t: 'Launch the Mission',
+    d: 'We brief a local crew. You stay wherever you are. They feel you in the room.',
+  },
+]
+
+const reactions = [
+  { text: 'bro she literally started crying omg 😭😭😭', time: '9:14 PM' },
+  { text: 'WHAT IS THIS I AM SHAKING 🤯', time: '11:03 PM' },
+  { text: 'best birthday of my life, tell me who sent this', time: '6:42 PM' },
+  { text: 'my roommates just barged in with a cake and flowers I\'M DEAD 😂', time: '8:21 PM' },
+  { text: 'she said yes 💍🥹 the setup was PERFECT', time: '7:58 PM' },
+  { text: 'mom called me 6 times crying, worth every rupee', time: '10:06 PM' },
+]
+
+const nriFlags = [
+  { flag: '🇺🇸', label: 'USA' },
+  { flag: '🇬🇧', label: 'UK' },
+  { flag: '🇨🇦', label: 'Canada' },
+  { flag: '🇦🇺', label: 'Australia' },
+  { flag: '🇦🇪', label: 'Dubai' },
+  { flag: '🇸🇬', label: 'Singapore' },
+]
 
 export default function Home() {
   return (
@@ -68,16 +124,25 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-y border-line bg-void">
-          <div className="mx-auto flex max-w-6xl gap-3 overflow-x-auto px-5 py-5">
-            {emotions.map((item) => (
-              <div
-                key={item.label}
-                className="shrink-0 rounded-full border border-line bg-panel px-4 py-2 font-ui text-sm text-snow"
-              >
-                <span aria-hidden="true">{item.emoji}</span> {item.label}
-              </div>
-            ))}
+        <section className="bg-void">
+          <div className="mx-auto max-w-6xl px-5 py-12">
+            <h2 className="text-center font-display text-2xl font-bold text-snow sm:text-3xl">
+              What do you want them to feel?
+            </h2>
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+              {emotions.map((item) => (
+                <Link
+                  key={item.slug}
+                  to={`/create?mood=${item.slug}`}
+                  className={`flex h-[120px] flex-col items-center justify-center rounded-2xl border border-line bg-panel transition-shadow ${item.glow}`}
+                >
+                  <span className="text-5xl" aria-hidden="true">
+                    {item.emoji}
+                  </span>
+                  <span className="mt-2 font-ui text-sm font-semibold text-snow">{item.label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -88,7 +153,17 @@ export default function Home() {
           <p className="mt-3 max-w-lg text-fog">Pick a vibe. Customize it. Launch it.</p>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((item) => (
-              <ExperienceCard key={item.id} {...item} />
+              <motion.div
+                key={item.id}
+                className="h-full"
+                whileHover={{
+                  y: -6,
+                  boxShadow: cardGlow[item.id] ?? '0 20px 40px rgba(255,51,102,0.3)',
+                }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <ExperienceCard {...item} />
+              </motion.div>
             ))}
           </div>
           <div className="mt-8">
@@ -100,19 +175,83 @@ export default function Home() {
 
         <section className="bg-void">
           <div className="mx-auto max-w-6xl px-5 py-20">
+            <h2 className="font-display text-3xl font-bold text-snow sm:text-4xl">Real reactions. Real moments.</h2>
+            <p className="mt-3 text-fog">Don&apos;t take our word for it.</p>
+            <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
+              {reactions.map((item) => (
+                <article key={item.text} className="overflow-hidden rounded-2xl border border-line shadow-lg">
+                  <div className="bg-[#075E54] px-3 py-2">
+                    <p className="font-ui text-[11px] font-semibold tracking-wide text-white/90">WhatsApp</p>
+                  </div>
+                  <div className="bg-[#111b21] p-3">
+                    <div className="rounded-lg bg-white px-3 py-2.5 text-left shadow-sm">
+                      <p className="text-sm leading-relaxed text-[#111b21]">{item.text}</p>
+                      <p className="mt-2 text-right text-[10px] text-[#667781]">{item.time}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="mt-8 text-center text-sm text-fog">
+              Reactions captured by our crew. Names hidden to protect the surprised. 🤫
+            </p>
+          </div>
+        </section>
+
+        <section
+          className="border-y border-pink bg-gradient-to-r from-[#1a1a2e] to-[#0d0d0d]"
+        >
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-14 md:grid-cols-2">
+            <div>
+              <p className="font-ui text-xs font-semibold tracking-[0.16em] text-pink-hot">
+                🌍 FOR INDIANS ABROAD
+              </p>
+              <h2 className="mt-3 font-display text-3xl font-bold text-snow sm:text-4xl">
+                Miss them? Surprise them.
+              </h2>
+              <p className="mt-3 max-w-md text-fog">
+                Send real experiences to your family in India — from USA, UK, Canada, Dubai, Singapore.
+              </p>
+              <Button to="/nri" className="mt-6 px-6 py-3">
+                Surprise Someone in India →
+              </Button>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {nriFlags.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex flex-col items-center rounded-2xl border border-line/70 bg-panel/60 px-3 py-4"
+                >
+                  <span className="text-3xl" aria-hidden="true">
+                    {item.flag}
+                  </span>
+                  <span className="mt-2 font-ui text-xs font-semibold text-fog">{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-void">
+          <div className="mx-auto max-w-6xl px-5 py-20">
             <h2 className="font-display text-3xl font-bold text-snow sm:text-4xl">How the mission lands</h2>
             <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                { n: '01', t: 'Lock the Target', d: 'Who, city, relationship.' },
-                { n: '02', t: 'Pick the Experience', d: 'Raid, roast, romance, or NRI magic.' },
-                { n: '03', t: 'Add the Magic', d: 'Message + notes for the crew.' },
-                { n: '04', t: 'Launch', d: 'We make the moment happen.' },
-              ].map((step) => (
-                <li key={step.n} className="rounded-2xl border border-line bg-panel p-6">
-                  <p className="text-sm font-semibold text-pink-hot">{step.n}</p>
-                  <h3 className="mt-3 font-display text-xl text-snow">{step.t}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-fog">{step.d}</p>
-                </li>
+              {howSteps.map((step, index) => (
+                <motion.li
+                  key={step.n}
+                  initial={{ opacity: 0, y: 22 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.4, delay: index * 0.15 }}
+                  className="rounded-2xl bg-gradient-to-r from-pink-500 to-purple-500 p-[1px]"
+                >
+                  <div className="h-full rounded-2xl bg-panel p-6">
+                    <p className="font-bebas text-5xl tracking-wide text-pink">{step.n}</p>
+                    <step.Icon className="mt-3 h-7 w-7 text-pink-hot" aria-hidden="true" />
+                    <h3 className="mt-3 font-display text-xl font-bold text-white">{step.t}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-fog">{step.d}</p>
+                  </div>
+                </motion.li>
               ))}
             </ol>
           </div>

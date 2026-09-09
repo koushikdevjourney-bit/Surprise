@@ -32,11 +32,16 @@ function initialForm(searchParams, locationState) {
   if (plan) clearPlannerPlan()
   const merged = { ...emptyForm, ...draft, ...fromPlan }
 
+  const mood = searchParams.get('mood')
+  if (mood) {
+    sessionStorage.setItem('surprise.mood', mood)
+  }
+
   const experienceId = searchParams.get('experience') || locationState?.experienceId
   if (experienceId && experiences.some((item) => item.id === experienceId)) {
-    return { ...merged, experienceId }
+    return { ...merged, experienceId, mood: mood || merged.mood }
   }
-  return merged
+  return mood ? { ...merged, mood } : merged
 }
 
 export default function CreateSurprise() {

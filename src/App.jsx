@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useSearchParams } from 'react-router-dom'
 import AdminLayout from './admin/AdminLayout'
 import AdminExperiences from './admin/pages/Experiences'
 import AdminOrderDetails from './admin/pages/OrderDetails'
@@ -17,6 +17,12 @@ import Nri from './pages/Nri'
 import Payment from './pages/Payment'
 import SurpriseTracking from './pages/SurpriseTracking'
 
+function CreateRedirect() {
+  const [searchParams] = useSearchParams()
+  const query = searchParams.toString()
+  return <Navigate to={query ? `/create-surprise?${query}` : '/create-surprise'} replace />
+}
+
 export default function App() {
   return (
     <Routes>
@@ -24,7 +30,7 @@ export default function App() {
       <Route path="/how-it-works" element={<HowItWorks />} />
       <Route path="/experiences" element={<Experiences />} />
       <Route path="/create-surprise" element={<CreateSurprise />} />
-      <Route path="/create" element={<Navigate to="/create-surprise" replace />} />
+      <Route path="/create" element={<CreateRedirect />} />
       <Route path="/ai-planner" element={<AiPlanner />} />
       <Route path="/planner" element={<Navigate to="/ai-planner" replace />} />
       <Route path="/nri" element={<Nri />} />
