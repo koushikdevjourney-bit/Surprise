@@ -1,0 +1,16 @@
+export const sampleBooking = {
+  id: 'SR-DEMO42',
+  recipientName: 'Ananya',
+  recipientCity: 'Mumbai',
+  relationship: 'Partner',
+  occasion: 'birthday',
+  experienceId: 'cake-flowers',
+  loves: 'Sunflowers and pistachio cake',
+  dislikes: 'Balloons that pop too loud',
+  message: 'Happy birthday. Wish I could be there — this is the next best thing.',
+  instructions: 'Please ring twice and wait by the lobby.',
+  date: '2026-09-20',
+  time: '18:30',
+  address: '12 Sea View, Bandra West, Mumbai 400050',
+  phone: '98765 43210',
+}
