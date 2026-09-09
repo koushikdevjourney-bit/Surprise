@@ -23,6 +23,12 @@ function CreateRedirect() {
   return <Navigate to={query ? `/create-surprise?${query}` : '/create-surprise'} replace />
 }
 
+function QueryRedirect({ to }) {
+  const [searchParams] = useSearchParams()
+  const query = searchParams.toString()
+  return <Navigate to={query ? `${to}?${query}` : to} replace />
+}
+
 export default function App() {
   return (
     <Routes>
@@ -32,7 +38,11 @@ export default function App() {
       <Route path="/create-surprise" element={<CreateSurprise />} />
       <Route path="/create" element={<CreateRedirect />} />
       <Route path="/ai-planner" element={<AiPlanner />} />
-      <Route path="/planner" element={<Navigate to="/ai-planner" replace />} />
+      <Route path="/planner" element={<QueryRedirect to="/ai-planner" />} />
+      <Route path="/explore" element={<QueryRedirect to="/experiences" />} />
+      <Route path="/surprises" element={<QueryRedirect to="/experiences" />} />
+      <Route path="/my-surprises" element={<Navigate to="/" replace />} />
+      <Route path="/reactions" element={<Navigate to="/" replace />} />
       <Route path="/nri" element={<Nri />} />
       <Route path="/become-a-partner" element={<BecomePartner />} />
       <Route path="/payment" element={<Payment />} />

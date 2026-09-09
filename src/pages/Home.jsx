@@ -259,10 +259,12 @@ export default function Home() {
 
         <section className="px-5 py-20">
           <div className="mx-auto max-w-6xl rounded-3xl bg-gradient-to-br from-pink/25 to-mood-anonymous/20 px-6 py-14 text-center sm:px-12">
-            <h2 className="font-display text-3xl font-bold sm:text-4xl">Ready to make someone&apos;s day?</h2>
-            <p className="mx-auto mt-4 max-w-md text-fog">Create a surprise they&apos;ll never see coming.</p>
+            <h2 className="font-display text-3xl font-bold sm:text-4xl">
+              Some moments are worth showing up for.
+              <span className="mt-2 block">Even when you can&apos;t.</span>
+            </h2>
             <Button to="/create-surprise" className="mt-8 px-6 py-3">
-              Create Surprise
+              Plan a Surprise
             </Button>
           </div>
         </section>
