@@ -1,13 +1,6 @@
 import Button from '../components/Button'
 import Layout from '../components/Layout'
 
-const features = [
-  'International card payments',
-  'WhatsApp updates in your timezone',
-  'Your family will think you’re magic',
-  'Available in 12 Indian cities',
-]
-
 const quotes = [
   {
     quote: 'Surprised my mom in Chennai from Toronto. She cried for 20 minutes. Worth every penny.',
@@ -36,14 +29,6 @@ export default function Nri() {
               Surprise Someone in India →
             </Button>
           </div>
-        </section>
-
-        <section className="mx-auto grid max-w-6xl gap-4 px-5 pb-16 sm:grid-cols-2">
-          {features.map((item) => (
-            <div key={item} className="rounded-2xl border border-mood-nri/40 bg-panel p-6">
-              <p className="font-display text-xl text-snow">{item}</p>
-            </div>
-          ))}
         </section>
 
         <section className="bg-void">

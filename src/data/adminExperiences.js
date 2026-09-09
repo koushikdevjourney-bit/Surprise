@@ -49,6 +49,50 @@ export const adminExperienceMeta = {
     cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Chennai'],
     status: 'Limited',
   },
+  'facemask-raid': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Pune'],
+    status: 'Active',
+  },
+  'mall-ambush': {
+    cities: ['Mumbai', 'Delhi', 'Bangalore', 'Pune', 'Hyderabad'],
+    status: 'Active',
+  },
+  'outdoor-banner-drop': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Chennai'],
+    status: 'Active',
+  },
+  'flash-mob': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore'],
+    status: 'Limited',
+  },
+  'caravan-surprise': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Pune'],
+    status: 'Active',
+  },
+  'midnight-link': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Pune', 'Chennai', 'Kolkata'],
+    status: 'Active',
+  },
+  'love-timeline': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Pune', 'Chennai', 'Kolkata'],
+    status: 'Active',
+  },
+  'memory-vault': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Pune', 'Chennai', 'Kolkata'],
+    status: 'Active',
+  },
+  'magic-moment': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore'],
+    status: 'Limited',
+  },
+  'bollywood-entry': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Pune'],
+    status: 'Active',
+  },
+  'squad-pooled': {
+    cities: ['Mumbai', 'Delhi', 'Hyderabad', 'Bangalore', 'Pune', 'Chennai'],
+    status: 'Active',
+  },
 }
 
 export function getAdminExperiences() {

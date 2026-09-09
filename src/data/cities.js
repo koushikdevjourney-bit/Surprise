@@ -10,7 +10,23 @@ export const cities = [
   'Kolkata',
   'Ahmedabad',
   'Jaipur',
+  'Surat',
   'Kochi',
   'Lucknow',
+  'Chandigarh',
+]
+
+export const recipientCities = [
+  'Hyderabad',
+  'Mumbai',
+  'Bangalore',
+  'Delhi',
+  'Pune',
+  'Chennai',
+  'Kolkata',
+  'Ahmedabad',
+  'Jaipur',
+  'Surat',
+  'Kochi',
   'Chandigarh',
 ]

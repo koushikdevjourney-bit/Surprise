@@ -19,6 +19,10 @@ import SurpriseTracking from './pages/SurpriseTracking'
 
 function CreateRedirect() {
   const [searchParams] = useSearchParams()
+  const type = searchParams.get('type')
+  if (type) {
+    sessionStorage.setItem('surprise.type', type)
+  }
   const query = searchParams.toString()
   return <Navigate to={query ? `/create-surprise?${query}` : '/create-surprise'} replace />
 }

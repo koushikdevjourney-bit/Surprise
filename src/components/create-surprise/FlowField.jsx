@@ -9,9 +9,10 @@ export default function FlowField({
   required = false,
   rows = 4,
   list,
+  inputClassName = '',
 }) {
   const classes =
-    'mt-2 w-full rounded-2xl border border-line bg-raised px-4 py-3 text-sm text-snow outline-none transition-colors placeholder:text-fog/60 focus:border-pink/50 focus:ring-2 focus:ring-pink/20'
+    `mt-2 w-full rounded-2xl border border-line bg-raised px-4 py-3 text-sm text-snow outline-none transition-colors placeholder:text-fog/60 focus:border-pink/50 focus:ring-2 focus:ring-pink/20 ${inputClassName}`
 
   return (
     <div>

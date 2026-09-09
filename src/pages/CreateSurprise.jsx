@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import ProgressSteps from '../components/create-surprise/ProgressSteps'
 import StepAccepted from '../components/create-surprise/StepAccepted'
@@ -37,11 +37,27 @@ function initialForm(searchParams, locationState) {
     sessionStorage.setItem('surprise.mood', mood)
   }
 
+  const type = searchParams.get('type')
+  if (type) {
+    sessionStorage.setItem('surprise.type', type)
+  }
+
   const experienceId = searchParams.get('experience') || locationState?.experienceId
   if (experienceId && experiences.some((item) => item.id === experienceId)) {
     return { ...merged, experienceId, mood: mood || merged.mood }
   }
+  if (type === 'group' && experiences.some((item) => item.id === 'squad-pooled')) {
+    return { ...merged, experienceId: 'squad-pooled', mood: mood || merged.mood }
+  }
   return mood ? { ...merged, mood } : merged
+}
+
+const STEP_FLASHES = {
+  1: 'Target locked. 🎯',
+  2: 'Occasion noted. Let’s build this. ✨',
+  3: 'Experience selected. Adding the magic... 🔥',
+  4: 'Perfect. When does this go down? 🕐',
+  5: 'Almost there. Review your mission. 🚀',
 }
 
 export default function CreateSurprise() {
@@ -50,6 +66,9 @@ export default function CreateSurprise() {
   const [step, setStep] = useState(1)
   const [form, setForm] = useState(() => initialForm(searchParams, location.state))
   const [booking, setBooking] = useState(null)
+  const [flash, setFlash] = useState(null)
+  const pendingStep = useRef(null)
+  const flashTimer = useRef(null)
 
   function updateForm(partial) {
     setForm((current) => {
@@ -59,9 +78,34 @@ export default function CreateSurprise() {
     })
   }
 
+  useEffect(() => {
+    return () => {
+      if (flashTimer.current) clearTimeout(flashTimer.current)
+    }
+  }, [])
+
   function goTo(nextStep) {
     setStep(nextStep)
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function advanceTo(nextStep) {
+    const message = nextStep > step ? STEP_FLASHES[step] : null
+    if (!message) {
+      goTo(nextStep)
+      return
+    }
+    if (flashTimer.current) clearTimeout(flashTimer.current)
+    pendingStep.current = nextStep
+    setFlash(message)
+    flashTimer.current = setTimeout(() => {
+      setFlash(null)
+      flashTimer.current = setTimeout(() => {
+        const dest = pendingStep.current
+        pendingStep.current = null
+        if (dest != null) goTo(dest)
+      }, 200)
+    }, 600)
   }
 
   function handlePaid() {
@@ -91,20 +135,19 @@ export default function CreateSurprise() {
         <AnimatePresence mode="wait">
           <motion.div
             key={step}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0, transition: { duration: 0.3 } }}
+            exit={{ opacity: 0, x: -50, transition: { duration: 0.25 } }}
           >
             {step === 1 ? (
-              <StepRecipient data={form} onChange={updateForm} onContinue={() => goTo(2)} />
+              <StepRecipient data={form} onChange={updateForm} onContinue={() => advanceTo(2)} />
             ) : null}
             {step === 2 ? (
               <StepOccasion
                 data={form}
                 onChange={updateForm}
                 onBack={() => goTo(1)}
-                onContinue={() => goTo(3)}
+                onContinue={() => advanceTo(3)}
               />
             ) : null}
             {step === 3 ? (
@@ -112,7 +155,7 @@ export default function CreateSurprise() {
                 data={form}
                 onChange={updateForm}
                 onBack={() => goTo(2)}
-                onContinue={() => goTo(4)}
+                onContinue={() => advanceTo(4)}
               />
             ) : null}
             {step === 4 ? (
@@ -120,7 +163,7 @@ export default function CreateSurprise() {
                 data={form}
                 onChange={updateForm}
                 onBack={() => goTo(3)}
-                onContinue={() => goTo(5)}
+                onContinue={() => advanceTo(5)}
               />
             ) : null}
             {step === 5 ? (
@@ -128,7 +171,7 @@ export default function CreateSurprise() {
                 data={form}
                 onChange={updateForm}
                 onBack={() => goTo(4)}
-                onContinue={() => goTo(6)}
+                onContinue={() => advanceTo(6)}
               />
             ) : null}
             {step === 6 ? (
@@ -144,6 +187,20 @@ export default function CreateSurprise() {
       </main>
       <SocialToasts />
       <FloatingCta />
+      <AnimatePresence>
+        {flash ? (
+          <motion.div
+            key={flash}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0D1A]/95 px-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <p className="text-center text-3xl font-bold text-white">{flash}</p>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   )
 }

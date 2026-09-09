@@ -3,6 +3,7 @@ import { Crosshair, Rocket, Sparkles, Wand2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
 import ExperienceCard from '../components/ExperienceCard'
+import GroupSurpriseBanner from '../components/GroupSurpriseBanner'
 import Layout from '../components/Layout'
 import { experiences } from '../data/experiences'
 
@@ -172,6 +173,8 @@ export default function Home() {
             </Button>
           </div>
         </section>
+
+        <GroupSurpriseBanner />
 
         <section className="bg-void">
           <div className="mx-auto max-w-6xl px-5 py-20">

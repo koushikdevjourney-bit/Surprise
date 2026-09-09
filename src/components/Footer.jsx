@@ -1,3 +1,4 @@
+import { Camera, Lock, MessageCircle, Smartphone } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const explore = [
@@ -21,49 +22,29 @@ const company = [
 
 function FooterLink({ to, href, children }) {
   const className =
-    'group inline-flex items-center gap-1 text-sm text-zinc-400 transition-colors duration-200 hover:text-[#FF3366]'
-  const arrow = (
-    <span
-      aria-hidden="true"
-      className="translate-x-[-2px] text-[11px] opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100"
-    >
-      →
-    </span>
+    'group text-sm text-zinc-400 transition-colors duration-200 hover:text-white'
+
+  const label = (
+    <>
+      <span aria-hidden="true" className="hidden group-hover:inline">
+        →{' '}
+      </span>
+      {children}
+    </>
   )
 
   if (to) {
     return (
       <Link to={to} className={className}>
-        {children}
-        {arrow}
+        {label}
       </Link>
     )
   }
 
   return (
     <a href={href} className={className}>
-      {children}
-      {arrow}
+      {label}
     </a>
-  )
-}
-
-function InstagramIcon({ className }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className={className} aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none" />
-    </svg>
-  )
-}
-
-function WhatsAppIcon({ className }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M17.47 14.38c-.28-.14-1.64-.81-1.89-.9-.25-.1-.44-.14-.62.14-.18.27-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.17-.43-2.23-1.37-.82-.73-1.38-1.64-1.54-1.91-.16-.28-.02-.42.12-.56.13-.13.28-.33.42-.5.14-.16.18-.28.28-.47.09-.18.05-.35-.02-.49-.07-.14-.62-1.49-.85-2.04-.22-.53-.45-.46-.62-.47h-.53c-.18 0-.47.07-.72.35-.25.27-.95.93-.95 2.27s.97 2.63 1.11 2.81c.14.18 1.91 2.91 4.63 4.08.65.28 1.15.45 1.54.57.65.21 1.24.18 1.71.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.11-.25-.18-.53-.32Z" />
-      <path d="M12.04 2.16c-5.46 0-9.9 4.44-9.9 9.9 0 1.74.45 3.44 1.32 4.94L2 22l5.14-1.35a9.86 9.86 0 0 0 4.9 1.25h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.64-1.03-5.13-2.9-7-1.87-1.87-4.36-2.84-7.01-2.84Zm0 18.07h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.05.8.81-2.97-.2-.31a8.2 8.2 0 0 1-1.26-4.37c0-4.53 3.69-8.21 8.22-8.21 2.19 0 4.26.86 5.81 2.41a8.17 8.17 0 0 1 2.4 5.81c0 4.53-3.69 8.17-8.24 8.17Z" />
-    </svg>
   )
 }
 
@@ -81,15 +62,15 @@ export default function Footer() {
       className="border-t pb-24 md:pb-0"
       style={{
         background: 'linear-gradient(180deg, #0D0D1A 0%, #000000 100%)',
-        borderTopColor: 'rgba(255,51,102,0.3)',
+        borderTop: '1px solid rgba(255,51,102,0.25)',
       }}
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-5 py-16 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-10">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-8 py-16 sm:grid-cols-2 lg:grid-cols-[35%_1fr_1fr_1fr] lg:gap-10">
         <div className="max-w-sm">
-          <Link to="/" className="font-display text-2xl font-extrabold tracking-tight text-snow">
+          <Link to="/" className="text-2xl font-bold tracking-tight text-white">
             Surprise <span aria-hidden="true">🎯</span>
           </Link>
-          <p className="mt-4 text-sm leading-relaxed text-zinc-500">
+          <p className="mt-3 text-sm leading-relaxed text-gray-400">
             You don&apos;t have to be there.
             <br />
             We&apos;ll make them feel you were.
@@ -99,31 +80,31 @@ export default function Footer() {
             <a
               href="#"
               aria-label="Instagram"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#16161f] text-zinc-400 transition-colors hover:text-[#FF3366]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-400 transition-colors hover:border-[#FF3366]/50 hover:text-[#FF3366]"
             >
-              <InstagramIcon className="h-4 w-4" />
+              <Camera className="h-4 w-4" />
             </a>
             <a
               href="#"
               aria-label="WhatsApp"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#16161f] text-zinc-400 transition-colors hover:text-[#FF3366]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-400 transition-colors hover:border-[#FF3366]/50 hover:text-[#FF3366]"
             >
-              <WhatsAppIcon className="h-4 w-4" />
+              <MessageCircle className="h-4 w-4" />
             </a>
             <a
               href="#"
               aria-label="Twitter / X"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#16161f] text-zinc-400 transition-colors hover:text-[#FF3366]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-400 transition-colors hover:border-[#FF3366]/50 hover:text-[#FF3366]"
             >
               <XIcon className="h-4 w-4" />
             </a>
           </div>
 
-          <p className="mt-6 text-sm text-[#FF3366]/55">Made with ❤️ in India 🇮🇳</p>
+          <p className="mt-6 text-xs text-pink-400/70">Made with ❤️ in India 🇮🇳</p>
         </div>
 
         <div>
-          <p className="font-ui text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">Explore</p>
+          <p className="font-ui text-[11px] font-semibold uppercase tracking-widest text-zinc-500">Explore</p>
           <ul className="mt-4 space-y-2.5">
             {explore.map((item) => (
               <li key={item.to}>
@@ -134,7 +115,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <p className="font-ui text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">Cities</p>
+          <p className="font-ui text-[11px] font-semibold uppercase tracking-widest text-zinc-500">Cities</p>
           <ul className="mt-4 space-y-2.5">
             {cities.map((city) => (
               <li key={city}>
@@ -142,11 +123,11 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs italic text-zinc-600">+ 6 more cities coming soon</p>
+          <p className="mt-3 text-xs italic text-zinc-600">+ 6 more cities soon</p>
         </div>
 
         <div>
-          <p className="font-ui text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500">Company</p>
+          <p className="font-ui text-[11px] font-semibold uppercase tracking-widest text-zinc-500">Company</p>
           <ul className="mt-4 space-y-2.5">
             {company.map((item) => (
               <li key={item.label}>
@@ -157,13 +138,20 @@ export default function Footer() {
         </div>
       </div>
 
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-5 py-5 text-center text-[11px] text-zinc-600">
-          <span>© 2025 Surprise India</span>
-          <span aria-hidden="true">|</span>
-          <span>🔒 Safe &amp; Verified Crews</span>
-          <span aria-hidden="true">|</span>
-          <span>📱 WhatsApp Support</span>
+      <div className="mx-auto max-w-6xl px-8">
+        <div className="mt-12 h-px bg-white/5" />
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-6">
+          <p className="text-xs text-gray-600">© 2025 Surprise India. All rights reserved.</p>
+          <div className="flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1 text-xs text-gray-500">
+              <Lock className="h-3 w-3" aria-hidden="true" />
+              🔒 Verified Crews
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1 text-xs text-gray-500">
+              <Smartphone className="h-3 w-3" aria-hidden="true" />
+              📱 WhatsApp Support
+            </span>
+          </div>
         </div>
       </div>
     </footer>
