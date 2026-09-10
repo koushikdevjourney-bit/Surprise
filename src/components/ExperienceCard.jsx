@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { imageForExperience } from '../data/experienceImages'
 import { isDigitalExperience } from '../data/experiences'
 import ExperienceDetailModal from './ExperienceDetailModal'
 
@@ -34,28 +35,36 @@ export default function ExperienceCard(experience) {
   const [open, setOpen] = useState(false)
   const digital = isDigitalExperience(experience)
   const displayName = title || name
+  const image = imageForExperience(id)
 
   return (
     <>
       <article
-        className={`group flex h-full flex-col rounded-2xl border p-6 transition-transform duration-200 hover:-translate-y-0.5 ${
+        className={`group flex h-full flex-col overflow-hidden rounded-2xl border transition-transform duration-200 hover:-translate-y-0.5 ${
           digital
             ? 'border-[rgba(99,102,241,0.4)] shadow-[0_0_20px_rgba(99,102,241,0.15)]'
             : `bg-panel mood-border-${mood}`
         }`}
         style={digital ? { background: 'linear-gradient(180deg, #1a1a3e 0%, #0d0d2e 100%)' } : undefined}
       >
-        <div className="mb-4 flex items-start justify-between gap-3">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-raised text-3xl">
+        <div className="relative aspect-[16/11] overflow-hidden">
+          <img
+            src={image}
+            alt=""
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-panel/80 via-transparent to-black/10" />
+          <div className="absolute bottom-3 left-3 flex h-11 w-11 items-center justify-center rounded-xl bg-black/45 text-2xl backdrop-blur-sm">
             <span aria-hidden="true">{emoji}</span>
           </div>
           {digital ? (
-            <span className="rounded-full bg-indigo-500/25 px-2.5 py-1 text-[10px] font-bold tracking-wide text-indigo-300">
+            <span className="absolute top-3 right-3 rounded-full bg-indigo-500/80 px-2.5 py-1 text-[10px] font-bold tracking-wide text-white">
               ⚡ INSTANT
             </span>
           ) : null}
         </div>
-        <h3 className="font-display text-xl font-bold text-snow">{displayName}</h3>
+        <div className="flex flex-1 flex-col p-5">
+          <h3 className="font-display text-xl font-bold text-snow">{displayName}</h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-fog">{description}</p>
         {digital ? (
           <p className="mt-3 text-xs font-semibold text-indigo-300">{deliveryTime ?? 'Ready in 2 hours'}</p>
@@ -99,6 +108,7 @@ export default function ExperienceCard(experience) {
             Customize →
           </button>
         ) : null}
+        </div>
       </article>
       <ExperienceDetailModal experience={experience} open={open} onClose={() => setOpen(false)} />
     </>

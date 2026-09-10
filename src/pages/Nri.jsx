@@ -1,5 +1,7 @@
 import Button from '../components/Button'
+import CinematicVideo from '../components/CinematicVideo'
 import Layout from '../components/Layout'
+import { videos } from '../data/videos'
 
 const quotes = [
   {
@@ -17,18 +19,31 @@ export default function Nri() {
     <Layout>
       <main>
         <section className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_10%,rgba(46,230,182,0.16),transparent_40%),radial-gradient(circle_at_10%_80%,rgba(255,45,138,0.18),transparent_36%)]" />
-          <div className="relative mx-auto max-w-6xl px-5 py-20">
-            <h1 className="font-display text-4xl font-extrabold text-snow sm:text-6xl">
-              Miss them? Surprise them. 🇮🇳
-            </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-fog">
-              Send real experiences to your family in India — from anywhere in the world.
-            </p>
-            <Button to="/create-surprise" className="mt-8 px-6 py-3">
-              Surprise Someone in India →
-            </Button>
-          </div>
+          <CinematicVideo
+            eager
+            src={videos.emotional.src}
+            poster={videos.emotional.poster}
+            label={videos.emotional.label}
+            className="min-h-[560px]"
+            overlay="bg-gradient-to-r from-[#07070b] via-[#07070b]/75 to-[#07070b]/25"
+          >
+            <div className="mx-auto flex min-h-[560px] max-w-6xl items-center px-5 py-20">
+              <div className="max-w-xl">
+                <p className="font-ui text-xs font-semibold tracking-[0.16em] text-pink-hot">
+                  FOR INDIANS ABROAD
+                </p>
+                <h1 className="mt-3 font-display text-4xl font-extrabold text-snow sm:text-6xl">
+                  Miss them? Surprise them.
+                </h1>
+                <p className="mt-5 max-w-xl text-lg leading-relaxed text-fog">
+                  Send real experiences to your family in India — from anywhere in the world.
+                </p>
+                <Button to="/create-surprise" className="mt-8 px-6 py-3">
+                  Surprise Someone in India →
+                </Button>
+              </div>
+            </div>
+          </CinematicVideo>
         </section>
 
         <section className="bg-void">

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { imageForExperience } from '../data/experienceImages'
 import { isDigitalExperience } from '../data/experiences'
 
 export default function ExperienceDetailModal({ experience, open, onClose }) {
@@ -47,6 +48,11 @@ export default function ExperienceDetailModal({ experience, open, onClose }) {
             exit={{ opacity: 0, y: 100 }}
             onClick={(event) => event.stopPropagation()}
           >
+            <img
+              src={imageForExperience(experience.id)}
+              alt=""
+              className="-mx-6 -mt-6 mb-5 h-40 w-[calc(100%+3rem)] object-cover sm:-mx-8 sm:-mt-8 sm:mb-6 sm:w-[calc(100%+4rem)] sm:rounded-t-3xl"
+            />
             <p className="text-4xl" aria-hidden="true">
               {experience.emoji}
             </p>

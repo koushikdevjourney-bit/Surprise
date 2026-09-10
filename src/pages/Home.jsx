@@ -2,10 +2,12 @@ import { motion } from 'framer-motion'
 import { Crosshair, Rocket, Sparkles, Wand2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
+import CinematicVideo from '../components/CinematicVideo'
 import ExperienceCard from '../components/ExperienceCard'
 import GroupSurpriseBanner from '../components/GroupSurpriseBanner'
 import Layout from '../components/Layout'
 import { experiences } from '../data/experiences'
+import { videos } from '../data/videos'
 
 const emotions = [
   { slug: 'loved', emoji: '❤️', label: 'Loved', glow: 'hover:shadow-[0_0_28px_rgba(255,45,138,0.55)] hover:border-pink' },
@@ -109,18 +111,31 @@ export default function Home() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
-              className="relative mx-auto w-full max-w-md"
+              className="relative mx-auto w-full max-w-lg"
             >
-              <div className="rounded-3xl border border-pink/30 bg-panel/80 p-6 shadow-[0_0_80px_rgba(255,45,138,0.15)] backdrop-blur">
-                <p className="font-bebas text-4xl tracking-wide text-snow">YOU → CREW → THEM</p>
-                <div className="mt-6 grid gap-3">
-                  <CityChip caption="You&apos;re here" city="Anywhere" />
-                  <div className="rounded-full border border-line bg-raised px-4 py-2 text-center text-xs font-semibold text-pink-hot">
-                    Mission in flight 🚀
+              <CinematicVideo
+                eager
+                src={videos.cinematic.src}
+                poster={videos.cinematic.poster}
+                label={videos.cinematic.label}
+                className="aspect-[4/5] rounded-[1.8rem] border border-pink/30 shadow-[0_0_80px_rgba(255,45,138,0.18)] sm:aspect-[5/6]"
+                overlay="bg-gradient-to-t from-[#07070b]/90 via-[#07070b]/20 to-transparent"
+              >
+                <div className="flex h-full flex-col justify-between p-5">
+                  <div className="flex flex-wrap gap-2">
+                    <span className="rounded-full border border-white/15 bg-black/40 px-3 py-1 font-ui text-[11px] font-semibold text-snow backdrop-blur-sm">
+                      📍 Hyderabad
+                    </span>
+                    <span className="rounded-full border border-white/15 bg-black/40 px-3 py-1 font-ui text-[11px] font-semibold text-snow backdrop-blur-sm">
+                      📍 Mumbai
+                    </span>
                   </div>
-                  <CityChip caption="They&apos;re there" city="Mumbai" />
+                  <div>
+                    <p className="font-bebas text-4xl tracking-wide text-snow">YOU → CREW → THEM</p>
+                    <p className="mt-1 text-sm text-fog">The moment is already on its way.</p>
+                  </div>
                 </div>
-              </div>
+              </CinematicVideo>
             </motion.div>
           </div>
         </section>
@@ -172,6 +187,33 @@ export default function Home() {
               See all experiences
             </Button>
           </div>
+        </section>
+
+        <section className="px-5 pb-6 pt-4">
+          <CinematicVideo
+            src={videos.emotional.src}
+            poster={videos.emotional.poster}
+            label={videos.emotional.label}
+            className="mx-auto min-h-[420px] max-w-6xl rounded-[2rem] border border-white/10 sm:min-h-[520px]"
+            overlay="bg-gradient-to-r from-[#07070b]/85 via-[#07070b]/45 to-[#07070b]/20"
+          >
+            <div className="flex min-h-[420px] max-w-xl flex-col justify-end p-7 sm:min-h-[520px] sm:p-12">
+              <p className="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-pink-hot">
+                The feeling
+              </p>
+              <h2 className="mt-3 font-display text-3xl font-bold text-snow sm:text-5xl">
+                They&apos;re in another city.
+                <span className="mt-2 block text-pink-hot">The moment still lands.</span>
+              </h2>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-fog sm:text-base">
+                You plan it from wherever you are. A local crew walks through their door with cake, flowers, and your
+                words.
+              </p>
+              <Button to="/create-surprise" className="mt-7 w-fit px-6 py-3">
+                Send the moment →
+              </Button>
+            </div>
+          </CinematicVideo>
         </section>
 
         <GroupSurpriseBanner />
@@ -261,26 +303,26 @@ export default function Home() {
         </section>
 
         <section className="px-5 py-20">
-          <div className="mx-auto max-w-6xl rounded-3xl bg-gradient-to-br from-pink/25 to-mood-anonymous/20 px-6 py-14 text-center sm:px-12">
-            <h2 className="font-display text-3xl font-bold sm:text-4xl">
-              Some moments are worth showing up for.
-              <span className="mt-2 block">Even when you can&apos;t.</span>
-            </h2>
-            <Button to="/create-surprise" className="mt-8 px-6 py-3">
-              Plan a Surprise
-            </Button>
-          </div>
+          <CinematicVideo
+            src={videos.cinematic.src}
+            poster={videos.cinematic.poster}
+            label={videos.cinematic.label}
+            className="mx-auto min-h-[380px] max-w-6xl rounded-[2rem] border border-pink/20 sm:min-h-[440px]"
+            overlay="bg-[#07070b]/70"
+          >
+            <div className="flex min-h-[380px] flex-col items-center justify-center px-6 py-14 text-center sm:min-h-[440px] sm:px-12">
+              <h2 className="max-w-2xl font-display text-3xl font-bold text-snow sm:text-5xl">
+                Some moments are worth showing up for.
+                <span className="mt-2 block text-pink-hot">Even when you can&apos;t.</span>
+              </h2>
+              <Button to="/create-surprise" className="mt-8 px-6 py-3">
+                Plan a Surprise
+              </Button>
+            </div>
+          </CinematicVideo>
         </section>
       </main>
     </Layout>
   )
 }
 
-function CityChip({ city, caption }) {
-  return (
-    <div className="rounded-2xl border border-line bg-raised p-4">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-pink-hot">{caption}</p>
-      <p className="mt-1 font-display text-2xl text-snow">{city}</p>
-    </div>
-  )
-}
