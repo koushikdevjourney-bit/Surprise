@@ -1,6 +1,7 @@
-import { experiences } from '../../data/experiences'
 import { occasions } from '../../data/occasions'
-import { formatDate, formatTime } from '../../lib/format'
+import { getExperience } from '../../lib/booking'
+import { getBuilderLines, getBuilderSubtotal, hasBuiltSurprise } from '../../lib/builder'
+import { formatDate, formatInr, formatTime } from '../../lib/format'
 import Button from '../Button'
 
 function ReviewBlock({ title, onEdit, children }) {
@@ -23,7 +24,9 @@ function ReviewBlock({ title, onEdit, children }) {
 
 export default function StepReview({ data, onEdit, onBack, onContinue }) {
   const occasion = occasions.find((item) => item.id === data.occasion)
-  const experience = experiences.find((item) => item.id === data.experienceId)
+  const experience = getExperience(data)
+  const built = hasBuiltSurprise(data)
+  const builderLines = getBuilderLines(data)
 
   const personalBits = [
     data.loves && `Loves: ${data.loves}`,
@@ -63,9 +66,27 @@ export default function StepReview({ data, onEdit, onBack, onContinue }) {
           </p>
         </ReviewBlock>
 
-        <ReviewBlock title="Experience" onEdit={() => onEdit(3)}>
-          <p className="font-display text-xl">{experience?.title ?? '—'}</p>
-          {experience ? <p className="mt-1 text-sm text-fog">{experience.description}</p> : null}
+        <ReviewBlock title={built ? 'Your Surprise' : 'Experience'} onEdit={() => onEdit(3)}>
+          {built ? (
+            <ul className="space-y-2 text-sm">
+              {builderLines.map((line) => (
+                <li key={`${line.section}-${line.id}`} className="flex justify-between gap-3">
+                  <span>
+                    <span aria-hidden="true">{line.emoji} </span>
+                    {line.name}
+                  </span>
+                  <span className="shrink-0 text-fog">
+                    {line.included ? 'Included' : formatInr(line.price)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <>
+              <p className="font-display text-xl">{experience?.title ?? '—'}</p>
+              {experience ? <p className="mt-1 text-sm text-fog">{experience.description}</p> : null}
+            </>
+          )}
         </ReviewBlock>
 
         <ReviewBlock title="Date" onEdit={() => onEdit(5)}>
@@ -97,8 +118,10 @@ export default function StepReview({ data, onEdit, onBack, onContinue }) {
         </ReviewBlock>
 
         <ReviewBlock title="Price" onEdit={() => onEdit(3)}>
-          <p className="font-display text-2xl text-pink-hot">{experience?.startingPrice ?? '—'}</p>
-          <p className="mt-1 text-sm text-fog">{experience?.price}</p>
+          <p className="font-display text-2xl text-pink-hot">
+            {built ? formatInr(getBuilderSubtotal(data)) : (experience?.startingPrice ?? '—')}
+          </p>
+          <p className="mt-1 text-sm text-fog">{built ? 'Custom build total' : experience?.price}</p>
         </ReviewBlock>
       </div>
 

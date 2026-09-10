@@ -1,20 +1,13 @@
-const STEPS = [
-  { id: 1, number: '01', label: 'Target' },
-  { id: 2, number: '02', label: 'Occasion' },
-  { id: 3, number: '03', label: 'Builder' },
-  { id: 4, number: '04', label: 'Magic' },
-  { id: 5, number: '05', label: 'When' },
-  { id: 6, number: '06', label: 'Review' },
-  { id: 7, number: '07', label: 'Briefing' },
-  { id: 8, number: '08', label: 'Launch' },
-  { id: 9, number: '09', label: 'Accepted' },
-]
+import { applySteps } from '../../data/crew'
 
-export default function ProgressSteps({ current }) {
-  const fill = Math.max(0, Math.min(1, (current - 1) / (STEPS.length - 1)))
+export default function CrewProgress({ current }) {
+  const fill = Math.max(0, Math.min(1, (current - 1) / (applySteps.length - 1)))
 
   return (
-    <nav aria-label="Mission progress" className="-mx-1 overflow-x-auto pb-1">
+    <nav aria-label="Application progress" className="-mx-1 overflow-x-auto pb-1">
+      <p className="mb-2 font-ui text-xs font-semibold text-fog">
+        Step {current}/{applySteps.length}
+      </p>
       <div className="mb-3 h-1 overflow-hidden rounded-full bg-white/10">
         <div
           className="h-full rounded-full bg-[#FF3366] transition-all duration-300"
@@ -22,7 +15,7 @@ export default function ProgressSteps({ current }) {
         />
       </div>
       <ol className="flex min-w-max items-center gap-1 px-1">
-        {STEPS.map((step, index) => {
+        {applySteps.map((step, index) => {
           const isCurrent = step.id === current
           const isDone = step.id < current
 
@@ -30,12 +23,12 @@ export default function ProgressSteps({ current }) {
             <li key={step.id} className="flex items-center">
               {index > 0 ? (
                 <span
-                  className={`mx-1 h-px w-4 sm:mx-1.5 sm:w-6 ${isDone || isCurrent ? 'bg-[#FF3366]' : 'bg-white/15'}`}
+                  className={`mx-1 h-px w-6 sm:mx-1.5 sm:w-10 ${isDone || isCurrent ? 'bg-[#FF3366]' : 'bg-white/15'}`}
                   aria-hidden="true"
                 />
               ) : null}
               <div
-                className={`flex items-center gap-1.5 rounded-full px-2 py-1.5 text-[11px] sm:px-2.5 sm:text-xs ${
+                className={`flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[11px] sm:px-3 sm:text-xs ${
                   isCurrent
                     ? 'bg-[#FF3366] font-semibold text-white shadow-[0_0_18px_rgba(255,51,102,0.45)]'
                     : isDone

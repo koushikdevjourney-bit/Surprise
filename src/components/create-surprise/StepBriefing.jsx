@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
+import { crewOptions } from '../../data/surpriseBuilder'
 import { getExperience, getOccasion } from '../../lib/booking'
+import { hasBuiltSurprise } from '../../lib/builder'
 import { formatDate, formatTime } from '../../lib/format'
 import Button from '../Button'
 
@@ -21,7 +23,11 @@ const crewVibes = {
 export default function StepBriefing({ data, onEdit, onBack, onContinue }) {
   const experience = getExperience(data)
   const occasion = getOccasion(data)
-  const vibe = crewVibes[data.experienceId] ?? 'Local Surprise Crew, high-energy and on-brief'
+  const built = hasBuiltSurprise(data)
+  const crew = crewOptions.find((item) => item.id === data.builder?.crewId)
+  const vibe = built
+    ? (crew?.description ?? 'Local Surprise Crew, high-energy and on-brief')
+    : (crewVibes[data.experienceId] ?? 'Local Surprise Crew, high-energy and on-brief')
 
   return (
     <div>
@@ -47,7 +53,7 @@ export default function StepBriefing({ data, onEdit, onBack, onContinue }) {
         <dl className="grid gap-5 px-6 py-6 sm:grid-cols-2 sm:px-8">
           <BriefRow label="Target" value={`${data.recipientName} · ${data.relationship || 'Someone special'}`} />
           <BriefRow label="City" value={data.recipientCity} />
-          <BriefRow label="Experience" value={experience?.title ?? '—'} />
+          <BriefRow label={built ? 'Build' : 'Experience'} value={built ? (crew?.name ?? 'Custom Surprise') : (experience?.title ?? '—')} />
           <BriefRow label="Occasion" value={occasion ? `${occasion.emoji} ${occasion.label}` : '—'} />
           <BriefRow label="Date" value={formatDate(data.date)} />
           <BriefRow label="Time" value={formatTime(data.time)} />
@@ -64,7 +70,7 @@ export default function StepBriefing({ data, onEdit, onBack, onContinue }) {
             Edit target
           </button>
           <button type="button" className="text-sm font-semibold text-fog hover:text-snow" onClick={() => onEdit(3)}>
-            Edit experience
+            {built ? 'Edit build' : 'Edit experience'}
           </button>
           <button type="button" className="text-sm font-semibold text-fog hover:text-snow" onClick={() => onEdit(5)}>
             Edit when

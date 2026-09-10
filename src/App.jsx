@@ -7,7 +7,6 @@ import AdminOverview from './admin/pages/Overview'
 import AdminPartners from './admin/pages/Partners'
 import AdminSettings from './admin/pages/Settings'
 import AiPlanner from './pages/AiPlanner'
-import BecomePartner from './pages/BecomePartner'
 import Confirmation from './pages/Confirmation'
 import CreateSurprise from './pages/CreateSurprise'
 import Experiences from './pages/Experiences'
@@ -16,6 +15,9 @@ import HowItWorks from './pages/HowItWorks'
 import Nri from './pages/Nri'
 import Payment from './pages/Payment'
 import SurpriseTracking from './pages/SurpriseTracking'
+import CrewApply from './pages/crew/CrewApply'
+import CrewDashboard from './pages/crew/CrewDashboard'
+import CrewLanding from './pages/crew/CrewLanding'
 
 function CreateRedirect() {
   const [searchParams] = useSearchParams()
@@ -48,7 +50,10 @@ export default function App() {
       <Route path="/my-surprises" element={<Navigate to="/" replace />} />
       <Route path="/reactions" element={<Navigate to="/" replace />} />
       <Route path="/nri" element={<Nri />} />
-      <Route path="/become-a-partner" element={<BecomePartner />} />
+      <Route path="/become-a-partner" element={<Navigate to="/crew" replace />} />
+      <Route path="/crew" element={<CrewLanding />} />
+      <Route path="/crew/apply" element={<CrewApply />} />
+      <Route path="/crew/dashboard" element={<CrewDashboard />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/confirmation" element={<Confirmation />} />
       <Route path="/surprise/:id" element={<SurpriseTracking />} />

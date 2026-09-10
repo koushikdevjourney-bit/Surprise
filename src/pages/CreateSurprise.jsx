@@ -4,8 +4,8 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import ProgressSteps from '../components/create-surprise/ProgressSteps'
 import StepAccepted from '../components/create-surprise/StepAccepted'
 import StepBriefing from '../components/create-surprise/StepBriefing'
-import StepExperience from '../components/create-surprise/StepExperience'
 import StepOccasion from '../components/create-surprise/StepOccasion'
+import StepSurpriseBuilder from '../components/create-surprise/StepSurpriseBuilder'
 import StepPayment from '../components/create-surprise/StepPayment'
 import StepPersonalize from '../components/create-surprise/StepPersonalize'
 import StepRecipient from '../components/create-surprise/StepRecipient'
@@ -24,6 +24,7 @@ import {
   saveBooking,
   saveDraft,
 } from '../lib/booking'
+import { builderFromExperience, normalizeBuilder } from '../lib/builder'
 
 function initialForm(searchParams, locationState) {
   const draft = loadDraft() ?? emptyForm
@@ -31,6 +32,10 @@ function initialForm(searchParams, locationState) {
   const fromPlan = formFromPlan(plan)
   if (plan) clearPlannerPlan()
   const merged = { ...emptyForm, ...draft, ...fromPlan }
+  merged.builder = normalizeBuilder(merged.builder)
+  if (!merged.builder.crewId && merged.experienceId && merged.experienceId !== 'custom-build') {
+    merged.builder = builderFromExperience(merged.experienceId)
+  }
 
   const mood = searchParams.get('mood')
   if (mood) {
@@ -44,10 +49,20 @@ function initialForm(searchParams, locationState) {
 
   const experienceId = searchParams.get('experience') || locationState?.experienceId
   if (experienceId && experiences.some((item) => item.id === experienceId)) {
-    return { ...merged, experienceId, mood: mood || merged.mood }
+    return {
+      ...merged,
+      experienceId,
+      mood: mood || merged.mood,
+      builder: merged.builder?.crewId ? merged.builder : builderFromExperience(experienceId),
+    }
   }
   if (type === 'group' && experiences.some((item) => item.id === 'squad-pooled')) {
-    return { ...merged, experienceId: 'squad-pooled', mood: mood || merged.mood }
+    return {
+      ...merged,
+      experienceId: 'squad-pooled',
+      mood: mood || merged.mood,
+      builder: merged.builder?.crewId ? merged.builder : builderFromExperience('squad-pooled'),
+    }
   }
   return mood ? { ...merged, mood } : merged
 }
@@ -55,7 +70,7 @@ function initialForm(searchParams, locationState) {
 const STEP_FLASHES = {
   1: 'Target locked. 🎯',
   2: 'Occasion noted. Let’s build this. ✨',
-  3: 'Experience selected. Adding the magic... 🔥',
+  3: 'Mission built. Adding the magic... 🔥',
   4: 'Perfect. When does this go down? 🕐',
   5: 'Almost there. Review your mission. 🚀',
 }
@@ -119,7 +134,7 @@ export default function CreateSurprise() {
   return (
     <div className="min-h-svh bg-ink pb-24">
       <header className="border-b border-line/80 bg-ink/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-5 py-4">
+        <div className={`mx-auto flex items-center justify-between gap-4 px-5 py-4 ${step === 3 ? 'max-w-6xl' : 'max-w-3xl'}`}>
           <Link to="/" className="font-display text-xl font-extrabold text-snow sm:text-2xl">
             Surprise <span aria-hidden="true">🎯</span>
           </Link>
@@ -127,17 +142,21 @@ export default function CreateSurprise() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-3xl px-5 py-6 sm:py-8">
+      <div className={`mx-auto px-5 py-6 sm:py-8 ${step === 3 ? 'max-w-6xl' : 'max-w-3xl'}`}>
         <ProgressSteps current={step} />
       </div>
 
-      <main className="mx-auto max-w-3xl px-5 pb-16">
+      <main className={`mx-auto px-5 pb-16 ${step === 3 ? 'max-w-6xl' : 'max-w-3xl'}`}>
         <AnimatePresence mode="wait">
           <motion.div
             key={step}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0, transition: { duration: 0.3 } }}
-            exit={{ opacity: 0, x: -50, transition: { duration: 0.25 } }}
+            initial={step === 3 ? { opacity: 0 } : { opacity: 0, x: 50 }}
+            animate={
+              step === 3
+                ? { opacity: 1, transition: { duration: 0.3 } }
+                : { opacity: 1, x: 0, transition: { duration: 0.3 } }
+            }
+            exit={step === 3 ? { opacity: 0, transition: { duration: 0.2 } } : { opacity: 0, x: -50, transition: { duration: 0.25 } }}
           >
             {step === 1 ? (
               <StepRecipient data={form} onChange={updateForm} onContinue={() => advanceTo(2)} />
@@ -151,7 +170,7 @@ export default function CreateSurprise() {
               />
             ) : null}
             {step === 3 ? (
-              <StepExperience
+              <StepSurpriseBuilder
                 data={form}
                 onChange={updateForm}
                 onBack={() => goTo(2)}
@@ -186,7 +205,7 @@ export default function CreateSurprise() {
         </AnimatePresence>
       </main>
       <SocialToasts />
-      <FloatingCta />
+      {step === 3 ? null : <FloatingCta />}
       <AnimatePresence>
         {flash ? (
           <motion.div

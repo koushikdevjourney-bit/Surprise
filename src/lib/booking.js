@@ -2,7 +2,9 @@ import { experiences } from '../data/experiences'
 import { fees } from '../data/fees'
 import { occasions } from '../data/occasions'
 import { sampleBooking } from '../data/sampleBooking'
-import { parseStartingPrice } from './format'
+import { emptyBuilder } from '../data/surpriseBuilder'
+import { builderFromExperience, getBuilderSubtotal, hasBuiltSurprise, normalizeBuilder } from './builder'
+import { formatInr, parseStartingPrice } from './format'
 
 export const DRAFT_KEY = 'surprise.draft'
 export const BOOKING_KEY = 'surprise.booking'
@@ -23,6 +25,7 @@ export const emptyForm = {
   address: '',
   phone: '',
   mood: '',
+  builder: { ...emptyBuilder },
 }
 
 export function formFromPlan(plan) {
@@ -31,13 +34,15 @@ export function formFromPlan(plan) {
     ? plan.occasion
     : occasions.find((item) => item.label.toLowerCase() === String(plan.occasion ?? '').toLowerCase())?.id
 
+  const experienceId = experiences.some((item) => item.id === plan.experienceId) ? plan.experienceId : ''
   return {
     recipientCity: plan.city ?? '',
     occasion: occasionId ?? '',
-    experienceId: experiences.some((item) => item.id === plan.experienceId) ? plan.experienceId : '',
+    experienceId,
     loves: plan.whyItWorks ?? '',
     message: plan.summary ?? '',
     instructions: plan.crewNotes ?? '',
+    builder: experienceId ? builderFromExperience(experienceId) : normalizeBuilder(),
   }
 }
 
@@ -64,13 +69,29 @@ export function isBookingComplete(form) {
     form.recipientName?.trim() &&
       form.recipientCity?.trim() &&
       form.occasion &&
-      form.experienceId &&
+      (form.experienceId || hasBuiltSurprise(form)) &&
       form.date &&
       form.time,
   )
 }
 
 export function getExperience(form) {
+  if (hasBuiltSurprise(form)) {
+    const total = getBuilderSubtotal(form)
+    const crewName = form.builder?.crewId
+    const catalogCrew = experiences.find((item) => item.id === form.experienceId)
+    return {
+      id: 'custom-build',
+      title: 'Custom Surprise',
+      emoji: '🎯',
+      description: 'A mission you built — crew, extras, and the vibe.',
+      priceAmount: total,
+      startingPrice: formatInr(total),
+      price: formatInr(total),
+      mood: form.mood || catalogCrew?.mood || 'birthday',
+      crewId: crewName,
+    }
+  }
   return experiences.find((item) => item.id === form?.experienceId)
 }
 
@@ -80,7 +101,9 @@ export function getOccasion(form) {
 
 export function getPricing(form) {
   const experience = getExperience(form)
-  const experienceAmount = experience?.priceAmount ?? parseStartingPrice(experience?.startingPrice)
+  const experienceAmount = hasBuiltSurprise(form)
+    ? getBuilderSubtotal(form)
+    : (experience?.priceAmount ?? parseStartingPrice(experience?.startingPrice))
   const serviceFee = fees.SERVICE_FEE_INR
   return {
     experienceAmount,

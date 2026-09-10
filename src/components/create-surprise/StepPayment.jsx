@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { getExperience, getOccasion, getPricing } from '../../lib/booking'
+import { getBuilderLines, hasBuiltSurprise } from '../../lib/builder'
 import { formatDate, formatInr, formatTime } from '../../lib/format'
 import Button from '../Button'
 
@@ -15,6 +16,8 @@ export default function StepPayment({ data, onBack, onPaid }) {
   const experience = getExperience(data)
   const occasion = getOccasion(data)
   const pricing = getPricing(data)
+  const built = hasBuiltSurprise(data)
+  const builderLines = getBuilderLines(data)
 
   function handlePay() {
     if (processing) return
@@ -36,7 +39,7 @@ export default function StepPayment({ data, onBack, onPaid }) {
           <Row label="Target" value={data.recipientName} />
           <Row label="City" value={data.recipientCity} />
           <Row label="Occasion" value={occasion ? `${occasion.emoji} ${occasion.label}` : '—'} />
-          <Row label="Experience" value={experience?.title ?? '—'} />
+          <Row label={built ? 'Build' : 'Experience'} value={experience?.title ?? '—'} />
           <Row label="Date" value={formatDate(data.date)} />
           <Row label="Time" value={formatTime(data.time)} />
         </dl>
@@ -45,10 +48,21 @@ export default function StepPayment({ data, onBack, onPaid }) {
       <section className="mt-4 rounded-2xl border border-line bg-panel p-5 sm:p-6">
         <h3 className="font-ui text-sm font-semibold uppercase tracking-[0.12em] text-pink-hot">Price</h3>
         <div className="mt-4 space-y-2 text-sm">
-          <div className="flex justify-between gap-4">
-            <span className="text-fog">Experience</span>
-            <span>{formatInr(pricing.experienceAmount)}</span>
-          </div>
+          {built
+            ? builderLines.map((line) => (
+                <div key={`${line.section}-${line.id}`} className="flex justify-between gap-4">
+                  <span className="text-fog">
+                    {line.emoji} {line.name}
+                  </span>
+                  <span>{line.included ? 'Included' : formatInr(line.price)}</span>
+                </div>
+              ))
+            : (
+                <div className="flex justify-between gap-4">
+                  <span className="text-fog">Experience</span>
+                  <span>{formatInr(pricing.experienceAmount)}</span>
+                </div>
+              )}
           <div className="flex justify-between gap-4">
             <span className="text-fog">Crew fee</span>
             <span>{formatInr(pricing.serviceFee)}</span>

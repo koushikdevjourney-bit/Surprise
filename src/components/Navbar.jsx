@@ -7,7 +7,7 @@ const links = [
   { to: '/ai-planner', label: 'AI Planner' },
   { to: '/how-it-works', label: 'How It Works' },
   { to: '/nri', label: 'For NRIs' },
-  { to: '/become-a-partner', label: 'Partner with Us' },
+  { to: '/crew', label: 'Partner with Us' },
 ]
 
 function linkClass({ isActive }) {
