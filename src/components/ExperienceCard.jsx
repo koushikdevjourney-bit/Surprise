@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { imageForExperience } from '../data/experienceImages'
 import { isDigitalExperience } from '../data/experiences'
 import ExperienceDetailModal from './ExperienceDetailModal'
+import LazyImage from './LazyImage'
 
 const tagStyles = {
   Popular: 'bg-pink/15 text-pink-hot',
@@ -31,6 +32,7 @@ export default function ExperienceCard(experience) {
     occasions = [],
     cta = true,
     deliveryTime,
+    recommended = false,
   } = experience
   const [open, setOpen] = useState(false)
   const digital = isDigitalExperience(experience)
@@ -41,22 +43,25 @@ export default function ExperienceCard(experience) {
     <>
       <article
         className={`group flex h-full flex-col overflow-hidden rounded-2xl border transition-transform duration-200 hover:-translate-y-0.5 ${
-          digital
-            ? 'border-[rgba(99,102,241,0.4)] shadow-[0_0_20px_rgba(99,102,241,0.15)]'
-            : `bg-panel mood-border-${mood}`
+          recommended
+            ? 'border-[#FF3366] bg-panel ring-2 ring-[#FF3366]/40'
+            : digital
+              ? 'border-[rgba(99,102,241,0.4)] shadow-[0_0_20px_rgba(99,102,241,0.15)]'
+              : `bg-panel mood-border-${mood}`
         }`}
         style={digital ? { background: 'linear-gradient(180deg, #1a1a3e 0%, #0d0d2e 100%)' } : undefined}
       >
         <div className="relative aspect-[16/11] overflow-hidden">
-          <img
-            src={image}
-            alt=""
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-          />
+          <LazyImage src={image} alt="" className="h-full w-full transition-transform duration-500 group-hover:scale-[1.04]" />
           <div className="absolute inset-0 bg-gradient-to-t from-panel/80 via-transparent to-black/10" />
           <div className="absolute bottom-3 left-3 flex h-11 w-11 items-center justify-center rounded-xl bg-black/45 text-2xl backdrop-blur-sm">
             <span aria-hidden="true">{emoji}</span>
           </div>
+          {recommended ? (
+            <span className="absolute top-3 left-3 rounded-full bg-[#FF3366] px-2.5 py-1 text-[10px] font-bold tracking-wide text-white">
+              FITS BUDGET
+            </span>
+          ) : null}
           {digital ? (
             <span className="absolute top-3 right-3 rounded-full bg-indigo-500/80 px-2.5 py-1 text-[10px] font-bold tracking-wide text-white">
               ⚡ INSTANT

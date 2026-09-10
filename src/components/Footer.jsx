@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 
 const explore = [
   { to: '/experiences', label: 'Experiences' },
+  { to: '/plan', label: 'Build a Plan' },
+  { to: '/reveal/demo', label: 'Scratch Reveal' },
+  { to: '/track/demo', label: 'Live Tracker' },
   { to: '/ai-planner', label: 'AI Planner' },
   { to: '/how-it-works', label: 'How It Works' },
   { to: '/nri', label: 'For NRIs' },

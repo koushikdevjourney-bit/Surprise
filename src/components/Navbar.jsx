@@ -4,6 +4,7 @@ import Button from './Button'
 
 const links = [
   { to: '/experiences', label: 'Experiences' },
+  { to: '/plan', label: 'Build a Plan' },
   { to: '/ai-planner', label: 'AI Planner' },
   { to: '/how-it-works', label: 'How It Works' },
   { to: '/nri', label: 'For NRIs' },

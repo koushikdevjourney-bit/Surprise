@@ -12,8 +12,11 @@ import CreateSurprise from './pages/CreateSurprise'
 import Experiences from './pages/Experiences'
 import Home from './pages/Home'
 import HowItWorks from './pages/HowItWorks'
+import LiveTrack from './pages/LiveTrack'
 import Nri from './pages/Nri'
 import Payment from './pages/Payment'
+import PlanWizard from './pages/PlanWizard'
+import Reveal from './pages/Reveal'
 import SurpriseTracking from './pages/SurpriseTracking'
 import CrewApply from './pages/crew/CrewApply'
 import CrewDashboard from './pages/crew/CrewDashboard'
@@ -42,6 +45,9 @@ export default function App() {
       <Route path="/how-it-works" element={<HowItWorks />} />
       <Route path="/experiences" element={<Experiences />} />
       <Route path="/create-surprise" element={<CreateSurprise />} />
+      <Route path="/plan" element={<PlanWizard />} />
+      <Route path="/reveal/:id" element={<Reveal />} />
+      <Route path="/track/:bookingId" element={<LiveTrack />} />
       <Route path="/create" element={<CreateRedirect />} />
       <Route path="/ai-planner" element={<AiPlanner />} />
       <Route path="/planner" element={<QueryRedirect to="/ai-planner" />} />

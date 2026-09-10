@@ -6,6 +6,7 @@ import CinematicVideo from '../components/CinematicVideo'
 import ExperienceCard from '../components/ExperienceCard'
 import GroupSurpriseBanner from '../components/GroupSurpriseBanner'
 import Layout from '../components/Layout'
+import SeoHead from '../components/SeoHead'
 import { experiences } from '../data/experiences'
 import { videos } from '../data/videos'
 
@@ -81,6 +82,11 @@ const nriFlags = [
 export default function Home() {
   return (
     <Layout>
+      <SeoHead
+        title="Surprise — Launch a moment"
+        description="Plan birthdays, proposals, date nights and anniversaries from anywhere. Local crew, cake, and the moment — handled."
+        path="/"
+      />
       <main>
         <section className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,45,138,0.22),transparent_42%),radial-gradient(circle_at_80%_0%,rgba(139,108,255,0.18),transparent_36%)]" />
@@ -101,7 +107,10 @@ export default function Home() {
                 <Button to="/create-surprise" className="px-6 py-3">
                   Create Surprise
                 </Button>
-                <Button href="#experiences" variant="secondary" className="px-6 py-3">
+                <Button to="/plan" variant="secondary" className="px-6 py-3">
+                  Build a Plan
+                </Button>
+                <Button href="#experiences" variant="ghost" className="px-6 py-3">
                   Browse Experiences
                 </Button>
               </div>
@@ -315,9 +324,14 @@ export default function Home() {
                 Some moments are worth showing up for.
                 <span className="mt-2 block text-pink-hot">Even when you can&apos;t.</span>
               </h2>
-              <Button to="/create-surprise" className="mt-8 px-6 py-3">
-                Plan a Surprise
-              </Button>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <Button to="/create-surprise" className="px-6 py-3">
+                  Plan a Surprise
+                </Button>
+                <Button to="/plan" variant="secondary" className="px-6 py-3">
+                  Build Your Surprise
+                </Button>
+              </div>
             </div>
           </CinematicVideo>
         </section>

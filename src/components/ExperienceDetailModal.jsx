@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { imageForExperience } from '../data/experienceImages'
 import { isDigitalExperience } from '../data/experiences'
+import LazyImage from './LazyImage'
 
 export default function ExperienceDetailModal({ experience, open, onClose }) {
   const digital = isDigitalExperience(experience)
@@ -48,10 +49,10 @@ export default function ExperienceDetailModal({ experience, open, onClose }) {
             exit={{ opacity: 0, y: 100 }}
             onClick={(event) => event.stopPropagation()}
           >
-            <img
+            <LazyImage
               src={imageForExperience(experience.id)}
               alt=""
-              className="-mx-6 -mt-6 mb-5 h-40 w-[calc(100%+3rem)] object-cover sm:-mx-8 sm:-mt-8 sm:mb-6 sm:w-[calc(100%+4rem)] sm:rounded-t-3xl"
+              className="-mx-6 -mt-6 mb-5 h-40 w-[calc(100%+3rem)] sm:-mx-8 sm:-mt-8 sm:mb-6 sm:w-[calc(100%+4rem)] sm:rounded-t-3xl"
             />
             <p className="text-4xl" aria-hidden="true">
               {experience.emoji}
