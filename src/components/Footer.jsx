@@ -17,7 +17,7 @@ const cities = ['Hyderabad', 'Mumbai', 'Bangalore', 'Delhi', 'Pune', 'Chennai']
 
 const company = [
   { href: '#', label: 'Contact' },
-  { href: '#', label: 'Privacy' },
+  { to: '/privacy-policy', label: 'Privacy Policy' },
   { href: '#', label: 'Terms' },
   { href: '#', label: 'Careers' },
   { href: '#', label: 'Press' },

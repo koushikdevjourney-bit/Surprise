@@ -21,6 +21,7 @@ import SurpriseTracking from './pages/SurpriseTracking'
 import CrewApply from './pages/crew/CrewApply'
 import CrewDashboard from './pages/crew/CrewDashboard'
 import CrewLanding from './pages/crew/CrewLanding'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 function CreateRedirect() {
   const [searchParams] = useSearchParams()
@@ -63,6 +64,8 @@ export default function App() {
       <Route path="/payment" element={<Payment />} />
       <Route path="/confirmation" element={<Confirmation />} />
       <Route path="/surprise/:id" element={<SurpriseTracking />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
 
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminOverview />} />
