@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 export default function FloatingCta() {
   const { pathname } = useLocation()
-  if (pathname.startsWith('/admin') || pathname === '/privacy-policy') return null
+  if (pathname.startsWith('/admin') || pathname === '/privacy-policy' || pathname === '/delete-account') return null
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-4 z-40 px-4 md:hidden">

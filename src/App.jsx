@@ -22,6 +22,7 @@ import CrewApply from './pages/crew/CrewApply'
 import CrewDashboard from './pages/crew/CrewDashboard'
 import CrewLanding from './pages/crew/CrewLanding'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import DeleteAccount from './pages/DeleteAccount'
 
 function CreateRedirect() {
   const [searchParams] = useSearchParams()
@@ -66,6 +67,8 @@ export default function App() {
       <Route path="/surprise/:id" element={<SurpriseTracking />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
+      <Route path="/delete-account" element={<DeleteAccount />} />
+      <Route path="/account-deletion" element={<Navigate to="/delete-account" replace />} />
 
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminOverview />} />

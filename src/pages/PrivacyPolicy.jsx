@@ -545,6 +545,13 @@ export default function PrivacyPolicy() {
                     Our privacy team will verify your identity and process your deletion request within <strong className="text-snow">30 days</strong>,
                     permanently removing your records from our MongoDB database, subject only to statutory tax or legal retention requirements.
                   </p>
+                  <p className="mt-3 text-xs text-fog">
+                    You can also visit our dedicated{' '}
+                    <Link to="/delete-account" className="font-semibold text-pink-hot hover:underline">
+                      Account Deletion Request Page
+                    </Link>{' '}
+                    to initiate this process online without signing in.
+                  </p>
                 </div>
               </div>
             </section>
