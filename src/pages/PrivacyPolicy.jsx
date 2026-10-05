@@ -3,10 +3,10 @@ import {
   Database,
   FileText,
   Lock,
-  Mail,
   MapPin,
   Server,
   ShieldCheck,
+  Smartphone,
   Sparkles,
   Trash2,
   UserCheck,
@@ -96,12 +96,12 @@ export default function PrivacyPolicy() {
 
               <div className="mt-6 border-t border-line/60 pt-4 text-[11px] text-fog/80">
                 Need help or wish to request data deletion?
-                <a
-                  href="mailto:privacy@surpriseplanner.com"
+                <Link
+                  to="/delete-account"
                   className="mt-1.5 block font-medium text-pink-hot hover:underline"
                 >
-                  privacy@surpriseplanner.com
-                </a>
+                  Submit Deletion Request →
+                </Link>
               </div>
             </div>
           </aside>
@@ -158,7 +158,7 @@ export default function PrivacyPolicy() {
                   <div className="rounded-xl border border-line/70 bg-void/60 p-4">
                     <h3 className="font-semibold text-snow">A. Account Registration &amp; Profile Details</h3>
                     <p className="mt-1 text-sm text-fog">
-                      When you create an account or sign in, we collect your name, email address, phone number,
+                      When you create an account or sign in, we collect your name, phone number,
                       and account credentials. This information is used to authenticate your identity, secure your
                       account, maintain your booking history, and provide customer notifications.
                     </p>
@@ -400,7 +400,7 @@ export default function PrivacyPolicy() {
                   <li>To enable verified crew members to fulfill deliveries, musical performances, photography, and decor.</li>
                   <li>To process booking transactions and issue digital confirmations and invoices.</li>
                   <li>To review, verify, and onboard performers and crew applicants.</li>
-                  <li>To provide prompt customer assistance via WhatsApp support, email, or telephone.</li>
+                  <li>To provide prompt customer assistance via WhatsApp support or in-app channels.</li>
                   <li>To detect and prevent fraudulent bookings, abuse, or unauthorized access.</li>
                 </ul>
               </div>
@@ -525,32 +525,24 @@ export default function PrivacyPolicy() {
                 <div className="mt-4 rounded-xl border border-line bg-void/70 p-5">
                   <h3 className="font-semibold text-snow">How to Request Account &amp; Data Deletion:</h3>
                   <p className="mt-2 text-sm text-fog">
-                    To delete your account, order history, or any personal data associated with your profile or email:
+                    To delete your account, order history, or any personal data associated with your profile:
                   </p>
                   <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-fog">
                     <li>
-                      Send an email to{' '}
-                      <a href="mailto:privacy@surpriseplanner.com" className="font-semibold text-pink-hot hover:underline">
-                        privacy@surpriseplanner.com
-                      </a>{' '}
-                      or{' '}
-                      <a href="mailto:support@surprise.india" className="font-semibold text-pink-hot hover:underline">
-                        support@surprise.india
-                      </a>
+                      Visit our public{' '}
+                      <Link to="/delete-account" className="font-semibold text-pink-hot hover:underline">
+                        Account Deletion Request Page (/delete-account)
+                      </Link>{' '}
+                      and submit your registered phone number or identifier.
                     </li>
-                    <li>Use the subject line: <code className="rounded bg-line px-1.5 py-0.5 text-snow">Data Deletion Request - [Your Name / Email]</code></li>
+                    <li>
+                      Alternatively, reach out directly to our <strong>WhatsApp Support</strong> desk from within the web or mobile app.
+                    </li>
                     <li>Specify whether you wish to delete your complete account, specific order records, or crew application data.</li>
                   </ol>
                   <p className="mt-3 text-xs text-fog">
-                    Our privacy team will verify your identity and process your deletion request within <strong className="text-snow">30 days</strong>,
+                    Our privacy team will verify your account and process your deletion request within <strong className="text-snow">30 days</strong>,
                     permanently removing your records from our MongoDB database, subject only to statutory tax or legal retention requirements.
-                  </p>
-                  <p className="mt-3 text-xs text-fog">
-                    You can also visit our dedicated{' '}
-                    <Link to="/delete-account" className="font-semibold text-pink-hot hover:underline">
-                      Account Deletion Request Page
-                    </Link>{' '}
-                    to initiate this process online without signing in.
                   </p>
                 </div>
               </div>
@@ -575,10 +567,10 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
                   We do not knowingly collect personal data from children under 13. If you become aware that a minor has
-                  provided us with personal information without parental consent, please contact us immediately at{' '}
-                  <a href="mailto:privacy@surpriseplanner.com" className="text-pink-hot hover:underline">
-                    privacy@surpriseplanner.com
-                  </a>
+                  provided us with personal information without parental consent, please contact us immediately via WhatsApp Support or our online request desk at{' '}
+                  <Link to="/delete-account" className="text-pink-hot hover:underline">
+                    /delete-account
+                  </Link>
                   , and we will promptly delete such information.
                 </p>
               </div>
@@ -613,7 +605,7 @@ export default function PrivacyPolicy() {
             <section id="contact-info" className="scroll-mt-24 rounded-2xl border border-line bg-panel/40 p-6 sm:p-8">
               <div className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-pink/10 text-pink-hot">
-                  <Mail className="h-5 w-5" />
+                  <Smartphone className="h-5 w-5" />
                 </div>
                 <h2 className="font-display text-xl font-bold text-snow sm:text-2xl">
                   14. Contact Information &amp; Grievances
@@ -623,7 +615,7 @@ export default function PrivacyPolicy() {
               <div className="mt-4 space-y-4">
                 <p>
                   If you have questions, feedback, or grievance inquiries regarding this Privacy Policy or our data
-                  handling practices, please contact our Data Protection and Support team:
+                  handling practices, please contact our team through our official channels:
                 </p>
 
                 <div className="rounded-xl border border-line bg-void/60 p-5 space-y-2 text-sm">
@@ -631,19 +623,14 @@ export default function PrivacyPolicy() {
                     <strong className="text-snow">Entity Name:</strong> Surprise Planner (&ldquo;Surprise India&rdquo;)
                   </p>
                   <p>
-                    <strong className="text-snow">Privacy &amp; Data Rights:</strong>{' '}
-                    <a href="mailto:privacy@surpriseplanner.com" className="text-pink-hot hover:underline">
-                      privacy@surpriseplanner.com
-                    </a>
+                    <strong className="text-snow">Data Rights &amp; Deletion Desk:</strong>{' '}
+                    <Link to="/delete-account" className="text-pink-hot hover:underline">
+                      Online Account Deletion Request Page
+                    </Link>
                   </p>
                   <p>
-                    <strong className="text-snow">General Customer Support:</strong>{' '}
-                    <a href="mailto:support@surprise.india" className="text-pink-hot hover:underline">
-                      support@surprise.india
-                    </a>
-                  </p>
-                  <p>
-                    <strong className="text-snow">WhatsApp Support:</strong> Available directly via our web &amp; mobile app
+                    <strong className="text-snow">Customer Support Channel:</strong>{' '}
+                    <span className="text-emerald-400">WhatsApp Support (Active 24/7 across web &amp; mobile app)</span>
                   </p>
                   <p>
                     <strong className="text-snow">Operating Region:</strong> India

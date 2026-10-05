@@ -3,10 +3,11 @@ import {
   Clock,
   Database,
   Lock,
-  Mail,
+  MessageCircle,
   RotateCcw,
   ShieldAlert,
   ShieldCheck,
+  Smartphone,
   Trash2,
   UserX,
 } from 'lucide-react'
@@ -16,21 +17,15 @@ import Layout from '../components/Layout'
 import SeoHead from '../components/SeoHead'
 
 export default function DeleteAccount() {
-  const [email, setEmail] = useState('')
+  const [identifier, setIdentifier] = useState('')
   const [reason, setReason] = useState('')
   const [role, setRole] = useState('customer')
   const [submitted, setSubmitted] = useState(false)
   const [clearedLocal, setClearedLocal] = useState(false)
 
-  const mailtoHref = `mailto:privacy@surpriseplanner.com?subject=${encodeURIComponent(
-    'Account Deletion Request - Surprise Planner',
-  )}&body=${encodeURIComponent(
-    `Hello Surprise Planner Team,\n\nI would like to request the permanent deletion of my Surprise Planner account and associated personal data.\n\nRegistered Email: \nRegistered Phone Number: \nAccount Type: Customer / Crew Partner\nReason (Optional): \n\nThank you.`,
-  )}`
-
   function handleSubmit(e) {
     e.preventDefault()
-    if (!email) return
+    if (!identifier.trim()) return
     setSubmitted(true)
   }
 
@@ -104,58 +99,15 @@ export default function DeleteAccount() {
             <div className="mt-4 space-y-4">
               <p>
                 Registered users of Surprise Planner (both Customers and Crew Partners) can initiate an account deletion
-                request without needing to be actively signed in. Choose whichever method is most convenient for you:
+                request without needing to be actively signed in. Choose whichever method is most convenient:
               </p>
 
-              {/* Option A: Direct Email */}
+              {/* Method A: Online Form */}
               <div className="rounded-xl border border-line/70 bg-void/60 p-5">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="font-semibold text-snow">Option A: Submit Request via Email (Recommended)</h3>
-                    <p className="mt-1 text-sm text-fog">
-                      Send an email directly from your registered email address to our Data Privacy Desk:
-                    </p>
-                    <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-fog">
-                      <li>
-                        <strong className="text-snow">Email Address:</strong>{' '}
-                        <a href="mailto:privacy@surpriseplanner.com" className="text-pink-hot hover:underline">
-                          privacy@surpriseplanner.com
-                        </a>{' '}
-                        or{' '}
-                        <a href="mailto:support@surprise.india" className="text-pink-hot hover:underline">
-                          support@surprise.india
-                        </a>
-                      </li>
-                      <li>
-                        <strong className="text-snow">Subject:</strong>{' '}
-                        <code className="rounded bg-line px-1.5 py-0.5 text-xs text-snow">
-                          Account Deletion Request - [Your Registered Email]
-                        </code>
-                      </li>
-                      <li>
-                        <strong className="text-snow">Information to include:</strong> Your registered full name, phone number,
-                        and whether you are a customer or a crew performer.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-4">
-                  <a
-                    href={mailtoHref}
-                    className="inline-flex items-center gap-2 rounded-xl bg-pink px-4 py-2.5 font-ui text-xs font-semibold text-white shadow-[0_4px_20px_rgba(255,45,138,0.35)] transition-colors hover:bg-pink-hot"
-                  >
-                    <Mail className="h-4 w-4" />
-                    Open Pre-Filled Deletion Email
-                  </a>
-                </div>
-              </div>
-
-              {/* Option B: On-page Form */}
-              <div className="rounded-xl border border-line/70 bg-void/60 p-5">
-                <h3 className="font-semibold text-snow">Option B: Submit Deletion Request Online</h3>
+                <h3 className="font-semibold text-snow">Method A: Submit Deletion Request Online (Recommended)</h3>
                 <p className="mt-1 text-sm text-fog">
-                  Fill in the details below. Our privacy desk will log your request and verify your registered credentials:
+                  Fill in your registered phone number or identifier below. Our team will verify your account and process
+                  the deletion:
                 </p>
 
                 {submitted ? (
@@ -165,25 +117,25 @@ export default function DeleteAccount() {
                       Request Submitted Successfully
                     </div>
                     <p className="mt-2 text-xs sm:text-sm text-emerald-200/90 leading-relaxed">
-                      We have logged your request for <strong className="text-snow">{email}</strong>. Our privacy team will
-                      verify your identity and dispatch a confirmation to your email. Your account and associated data will be
-                      permanently removed within <strong className="text-snow">30 days</strong>.
+                      We have logged your account deletion request for <strong className="text-snow">{identifier}</strong>.
+                      Our team will verify your account and all associated personal data will be permanently removed within{' '}
+                      <strong className="text-snow">30 days</strong>.
                     </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="mt-4 space-y-4">
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
-                        <label htmlFor="del-email" className="block text-xs font-semibold text-snow">
-                          Registered Email Address <span className="text-pink-hot">*</span>
+                        <label htmlFor="del-id" className="block text-xs font-semibold text-snow">
+                          Registered Phone Number / Mobile <span className="text-pink-hot">*</span>
                         </label>
                         <input
-                          id="del-email"
-                          type="email"
+                          id="del-id"
+                          type="text"
                           required
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="e.g. you@example.com"
+                          value={identifier}
+                          onChange={(e) => setIdentifier(e.target.value)}
+                          placeholder="e.g. +91 98765 43210"
                           className="mt-1.5 w-full rounded-xl border border-line bg-panel px-3.5 py-2.5 text-sm text-snow placeholder:text-fog/50 focus:border-pink focus:outline-none focus:ring-1 focus:ring-pink"
                         />
                       </div>
@@ -229,6 +181,30 @@ export default function DeleteAccount() {
                   </form>
                 )}
               </div>
+
+              {/* Method B: WhatsApp Support */}
+              <div className="rounded-xl border border-line/70 bg-void/60 p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="font-semibold text-snow">Method B: Request via WhatsApp Support</h3>
+                    <p className="mt-1 text-sm text-fog">
+                      You can also request account and data deletion by contacting our verified WhatsApp Support team directly:
+                    </p>
+                    <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-fog">
+                      <li>Message our WhatsApp Support channel accessible throughout the web app and mobile app.</li>
+                      <li>Send a message stating: <code className="rounded bg-line px-1.5 py-0.5 text-xs text-snow">Account Deletion Request</code></li>
+                      <li>Provide your registered phone number or booking ID for identity verification.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <span className="inline-flex items-center gap-2 rounded-xl border border-line bg-panel px-4 py-2.5 text-xs font-semibold text-snow">
+                    <MessageCircle className="h-4 w-4 text-emerald-400" />
+                    WhatsApp Support Channel Active
+                  </span>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -254,8 +230,7 @@ export default function DeleteAccount() {
                   <h3 className="font-semibold text-snow">Profile &amp; Credentials</h3>
                   <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-fog">
                     <li>Full Name and Display Name</li>
-                    <li>Registered Email Address</li>
-                    <li>Phone &amp; WhatsApp contact number</li>
+                    <li>Registered Phone / Contact Number</li>
                     <li>Login credentials, session tokens, and passwords</li>
                   </ul>
                 </div>
@@ -351,11 +326,11 @@ export default function DeleteAccount() {
               <ul className="list-disc space-y-2 pl-5">
                 <li>
                   <strong className="text-snow">Processing Window:</strong> Account deletion requests are verified and
-                  fully completed within <strong className="text-snow">30 calendar days</strong> of receiving your request.
+                  fully completed within <strong className="text-snow">30 calendar days</strong> of submission.
                 </li>
                 <li>
                   <strong className="text-snow">7-Day Grace Period:</strong> You may cancel an accidental deletion request
-                  by emailing us within 7 days of submitting the request.
+                  by messaging our WhatsApp support team within 7 days of submitting the request.
                 </li>
                 <li>
                   <strong className="text-snow">Backup Lifecycle:</strong> Encrypted secondary disaster recovery backups
@@ -412,7 +387,7 @@ export default function DeleteAccount() {
           <section className="rounded-2xl border border-line bg-panel/40 p-6 sm:p-8">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-pink/10 text-pink-hot">
-                <Mail className="h-5 w-5" />
+                <Smartphone className="h-5 w-5" />
               </div>
               <h2 className="font-display text-xl font-bold text-snow sm:text-2xl">
                 6. Contact Channels for Data Inquiries
@@ -430,16 +405,12 @@ export default function DeleteAccount() {
                   <strong className="text-snow">Entity Name:</strong> Surprise Planner (&ldquo;Surprise India&rdquo;)
                 </p>
                 <p>
-                  <strong className="text-snow">Privacy &amp; Deletion Inquiries:</strong>{' '}
-                  <a href="mailto:privacy@surpriseplanner.com" className="text-pink-hot hover:underline">
-                    privacy@surpriseplanner.com
-                  </a>
+                  <strong className="text-snow">Online Deletion Request:</strong>{' '}
+                  <span className="text-fog">Available directly via the form on this page</span>
                 </p>
                 <p>
-                  <strong className="text-snow">General Support:</strong>{' '}
-                  <a href="mailto:support@surprise.india" className="text-pink-hot hover:underline">
-                    support@surprise.india
-                  </a>
+                  <strong className="text-snow">Customer Support:</strong>{' '}
+                  <span className="text-emerald-400">WhatsApp Support (Active 24/7)</span>
                 </p>
                 <p>
                   <strong className="text-snow">Privacy Policy:</strong>{' '}
